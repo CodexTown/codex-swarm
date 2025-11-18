@@ -73,6 +73,7 @@ Format (Markdown):
 
 - `[ ] [T-001] Add Normalizer Service`
 - `[x] [T-000] Initialize repository`
+- Whenever a task moves into `Done`, append an indented `  - Review: ...` line right below it. Keep the review to one or two human-readable sentences that call out the key files, behaviors, or tests touched so future readers understand the change without opening the commit.
 
 Allowed statuses (semantic, not necessarily printed): `TODO`, `DOING`, `DONE`, `BLOCKED`.
 
@@ -80,7 +81,7 @@ Allowed statuses (semantic, not necessarily printed): `TODO`, `DOING`, `DONE`, `
 
 - **Create / Reprioritize (PLANNER only).** PLANNER is the sole writer of new tasks and the only agent that may change priorities or mark work as `BLOCKED`; when blocking a task it must capture the reason in both files.
 - **Start Work (specialist agent).** Whoever assumes ownership flips the task to `DOING` in both trackers before editing files, signaling that the work is in progress.
-- **Complete Work (review/doc specialist).** The reviewer or documentation-focused agent marks tasks `DONE` only after validating the deliverable; otherwise they request follow-up work.
+- **Complete Work (review/doc specialist).** The reviewer or documentation-focused agent marks tasks `DONE` only after validating the deliverable; otherwise they request follow-up work. When flipping to `DONE`, they must also write the review line described above so the PLAN captures a concise summary of the validated changes.
 - **Status Sync.** Every transition must be mirrored in `PLAN.md` and `.AGENTS/TASKS.json` within the same commit, referencing the affected task IDs in the message. If a discrepancy is detected, pause and reconcile before continuing.
 - **Escalations.** Agents lacking permission for a desired transition must request PLANNER involvement or schedule an appropriate reviewer via the plan rather than editing statuses directly.
 

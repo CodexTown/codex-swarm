@@ -29,3 +29,4 @@
 - [x] [T-001] Document framework in README
 - [x] [T-020] Add Spanish README translation
 - [x] [T-021] Enhance translator glossary workflow
+  - Review: Updated the TRANSLATOR agent so every run maintains @GLOSSARY.json, tracks usage frequencies, and enforces approved glossary terms automatically.

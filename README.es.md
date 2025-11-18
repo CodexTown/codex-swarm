@@ -58,7 +58,7 @@ Esta estructura permite encadenar flujos arbitrarios como implementación de có
 
 ## Detalles del estado compartido
 
-- **`PLAN.md`**: Lista Markdown con casillas de verificación pensada para humanos. Incluye tareas con IDs, secciones (Backlog, In Progress, Done) y estado. Los agentes siempre la leen por completo antes de editar.
+- **`PLAN.md`**: Lista Markdown con casillas de verificación pensada para humanos. Incluye tareas con IDs, secciones (Backlog, In Progress, Done) y estado. Los agentes siempre la leen por completo antes de editar y, cada vez que una tarea pasa a completada, agregan de inmediato una línea con sangría `Review:` que resuma (en una o dos oraciones) qué cambió y por qué.
 - **`.AGENTS/TASKS.json`**: Espejo para máquinas con un esquema JSON estricto, de modo que los agentes puedan analizar, filtrar y actualizar el estado de forma determinista. Cuando ocurren discrepancias, `.AGENTS/TASKS.json` es la fuente canónica y `PLAN.md` debe reconciliarse.
 
 ## Cómo agregar un nuevo agente
