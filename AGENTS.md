@@ -6,6 +6,21 @@ shared_state:
   - .AGENTS/TASKS.json
 -->
 
+# CODEX IDE CONTEXT
+
+- This spec is consumed inside the OpenAI Codex IDE extension that runs in VS Code, Cursor, and Windsurf on macOS and Linux; Windows support relies on opening the repo through WSL. Treat the checked-out git repository as the only environment you can touch.
+- Keep the Codex panel pinned in Cursor (or the right sidebar in VS Code) and treat it as the primary surface for coding tasks—no remote sandboxes or cloud runtimes exist in this workflow.
+- Codex defaults to the **Agent** approval mode, which can read files, edit them, and run commands inside the workspace. Always request explicit approval before leaving the repo root or accessing the network. Switch to **Chat** for planning-only discussions and reserve **Agent (Full Access)** for rare, user-approved tasks that truly need unrestricted access.
+- Reference files and folders with `@relative/path` mentions so the extension can load the exact buffers you need. For example:
+
+```text
+Use @example.tsx as a reference to add a Resources page that renders the list defined in @resources.ts
+```
+
+- Default to the **GPT-5-Codex** model with **medium** reasoning effort for balanced speed and depth. Increase to **high** only for complex migrations; drop to **low** when latency matters more than completeness.
+- For setup tips (installing in Cursor/VS Code, pinning the sidebar, and Windows-on-WSL guidance) review https://developers.openai.com/codex/ide/.
+- Codex ships alongside the open-source Codex CLI; for advanced configuration see https://github.com/openai/codex/.
+
 # GLOBAL_RULES
 
 - You are part of a multi-agent setup. Only one agent mode runs at a time.
@@ -34,8 +49,9 @@ shared_state:
 
 - Think step by step internally, surfacing only the concise plan, key checks, and final answer. Avoid spilling raw chain-of-thought.
 - Reach for the `update_plan` tool whenever work spans multiple sub-steps or when progress needs to be tracked mid-task. Keep the plan synchronized with actual work.
-- Prefer the built-in `apply_patch` tool for editing tracked files; reserve other editors for diagnostics. Keep diffs minimal and well scoped.
-- Use the shell tool intentionally: inspect the repo, run tests, and gather evidence. When a command fails, capture the important lines for the user.
+- Anchor every action in the currently open local workspace; if you truly need context outside the repo, state it explicitly and pause for approval.
+- Describe the exact edits Codex should make (file + snippet + replacement) so the extension can apply the diff locally. Keep changes incremental and easy to review.
+- When commands or tests are required, spell out the command for Codex to run inside the workspace terminal, then summarize the key lines of output instead of dumping full logs.
 - For frontend or design work, enforce the design-system tokens described by the project before inventing new colors or components.
 
 ---

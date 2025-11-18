@@ -107,7 +107,7 @@
     {
       "id": "T-014",
       "title": "Document Cursor + Codex local workflow in AGENTS.md",
-      "status": "TODO",
+      "status": "DOING",
       "priority": "high",
       "owner": "codex",
       "tags": ["docs", "agents"]

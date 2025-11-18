@@ -1,11 +1,10 @@
 ## Backlog
 
-- [ ] [T-014] Document Cursor + Codex local workflow in AGENTS.md
 - [ ] [T-015] Align agent prompts with Cursor + Codex constraints
 
 ## In Progress
 
-- _No active tasks._
+- [ ] [T-014] Document Cursor + Codex local workflow in AGENTS.md
 
 ## Done
 
