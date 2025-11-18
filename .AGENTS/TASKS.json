@@ -167,6 +167,14 @@
       "priority": "high",
       "owner": "codex",
       "tags": ["agents", "localization"]
+    },
+    {
+      "id": "T-022",
+      "title": "Add Russian README translation",
+      "status": "TODO",
+      "priority": "med",
+      "owner": "codex",
+      "tags": ["docs", "localization"]
     }
   ]
 }
