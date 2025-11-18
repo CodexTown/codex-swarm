@@ -43,7 +43,7 @@
     {
       "id": "T-006",
       "title": "Add Agent Creator workflow",
-      "status": "TODO",
+      "status": "DONE",
       "priority": "high",
       "owner": "codex",
       "tags": ["agents", "automation"]
