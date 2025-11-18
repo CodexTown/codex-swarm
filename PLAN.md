@@ -4,10 +4,11 @@
 
 ## In Progress
 
-- [ ] [T-014] Document Cursor + Codex local workflow in AGENTS.md
+- _No active tasks._
 
 ## Done
 
+- [x] [T-014] Document Cursor + Codex local workflow in AGENTS.md
 - [x] [T-013] Align agent prompts with GPT-5.1 guide
 - [x] [T-012] Generalize AGENTS.md to remove agent-specific guidance
 - [x] [T-011] Evaluate current workflow and suggest improvements
