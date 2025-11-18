@@ -4,7 +4,7 @@
 
 ## In Progress
 
-- [ ] [T-021] Enhance translator glossary workflow
+- _No active tasks._
 
 ## Done
 
@@ -28,3 +28,4 @@
 - [x] [T-002] Restructure agent registry into JSON files
 - [x] [T-001] Document framework in README
 - [x] [T-020] Add Spanish README translation
+- [x] [T-021] Enhance translator glossary workflow
