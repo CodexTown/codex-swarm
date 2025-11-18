@@ -4,7 +4,7 @@
 
 ## In Progress
 
-- [ ] [T-024] Revise glossary schema for translations
+- _No active tasks._
 
 ## Done
 
@@ -34,3 +34,5 @@
   - Review: Added README.ru.md plus @GLOSSARY.json so translation terminology stays consistent.
 - [x] [T-023] Add Spanish README translation
   - Review: Created README.es.md and updated @GLOSSARY.json with Spanish equivalents for existing terms.
+- [x] [T-024] Revise glossary schema for translations
+  - Review: Updated the TRANSLATOR workflow and converted @GLOSSARY.json so English stays canonical while localized entries keep their own terms and descriptions.
