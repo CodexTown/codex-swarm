@@ -79,6 +79,14 @@
       "priority": "med",
       "owner": "codex",
       "tags": ["agents", "automation"]
+    },
+    {
+      "id": "T-011",
+      "title": "Evaluate workflow and suggest improvements",
+      "status": "TODO",
+      "priority": "med",
+      "owner": "codex",
+      "tags": ["workflow", "analysis"]
     }
   ]
 }
