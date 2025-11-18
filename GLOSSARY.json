@@ -2,31 +2,46 @@
   "terms": [
     {
       "term": "Codex Agents Swarm",
-      "description": "Название легковесного фреймворка для кооперативных Codex-агентов внутри IDE.",
+      "description": "Lightweight framework for cooperative Codex agents inside IDEs.",
       "translations": {
-        "en": "Codex Agents Swarm",
-        "ru": "Рой агентов Codex",
-        "es": "Enjambre de agentes Codex"
+        "ru": {
+          "term": "Рой агентов Codex",
+          "description": "Название легковесного фреймворка для кооперативных Codex-агентов внутри IDE."
+        },
+        "es": {
+          "term": "Enjambre de agentes Codex",
+          "description": "Nombre del framework ligero para agentes Codex cooperativos dentro del IDE."
+        }
       },
       "frequency": 2
     },
     {
       "term": "OpenAI Codex Plugin",
-      "description": "Плагин Codex, который соединяет IDE с возможностями OpenAI.",
+      "description": "Codex plugin that connects the IDE with OpenAI capabilities.",
       "translations": {
-        "en": "OpenAI Codex Plugin",
-        "ru": "плагин OpenAI Codex",
-        "es": "plugin OpenAI Codex"
+        "ru": {
+          "term": "плагин OpenAI Codex",
+          "description": "Плагин Codex, который соединяет IDE с возможностями OpenAI."
+        },
+        "es": {
+          "term": "plugin OpenAI Codex",
+          "description": "Plugin Codex que conecta el IDE con las capacidades de OpenAI."
+        }
       },
       "frequency": 2
     },
     {
       "term": "Orchestrator",
-      "description": "Агент, который интерпретирует цели пользователя и координирует остальных исполнителей.",
+      "description": "Agent that interprets user goals and coordinates the other executors.",
       "translations": {
-        "en": "Orchestrator",
-        "ru": "оркестратор",
-        "es": "Orquestador"
+        "ru": {
+          "term": "оркестратор",
+          "description": "Агент, который интерпретирует цели пользователя и координирует остальных исполнителей."
+        },
+        "es": {
+          "term": "Orquestador",
+          "description": "Agente que interpreta los objetivos de la persona usuaria y coordina al resto de ejecutores."
+        }
       },
       "frequency": 2
     }
