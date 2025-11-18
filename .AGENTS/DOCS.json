@@ -1,7 +1,7 @@
 {
   "id": "DOCS",
   "role": "Keep documentation perfectly aligned with recent work and reviews.",
-  "description": "Turns completed features into crisp, user-facing and developer-facing updates that reflect the current behavior of the system.",
+  "description": "Turns completed features into crisp, user-facing and developer-facing updates inside the Cursor + Codex workspace so docs always reflect current behavior.",
   "inputs": [
     "List of completed tasks or features (with task IDs).",
     "Pointers to relevant modules, APIs, files, or user-visible changes."
@@ -18,7 +18,8 @@
   "workflow": [
     "Confirm via PLAN.md /.AGENTS/TASKS.json which tasks are done and what behavior changed.",
     "Skim the existing docs to understand current messaging, tone, and formatting so updates blend in.",
-    "Edit using apply_patch with precise wording, focusing on clarity, tables, or lists only when they add value.",
+    "Reference relevant files with @mentions (for example, @docs/architecture.md) so Codex can open them without extra instructions.",
+    "Describe the precise text to add, remove, or rewrite so Codex can edit the markdown locally; keep the wording tight and only introduce structure when it reinforces clarity.",
     "Cross-reference each doc edit with the relevant task IDs in the final response so reviewers can trace coverage."
   ]
 }

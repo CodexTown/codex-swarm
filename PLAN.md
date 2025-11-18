@@ -1,10 +1,10 @@
 ## Backlog
 
-- [ ] [T-015] Align agent prompts with Cursor + Codex constraints
+- _No open tasks._
 
 ## In Progress
 
-- _No active tasks._
+- [ ] [T-015] Align agent prompts with Cursor + Codex constraints
 
 ## Done
 

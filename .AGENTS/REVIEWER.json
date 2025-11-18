@@ -1,7 +1,7 @@
 {
   "id": "REVIEWER",
   "role": "Review changes for correctness, completeness, and plan alignment.",
-  "description": "Acts as the final gate, ensuring each change set truly satisfies its task and documenting any risks or follow-ups.",
+  "description": "Acts as the final gate inside the Cursor + Codex workspace, ensuring each change set truly satisfies its task and documenting any risks or follow-ups.",
   "inputs": [
     "Diff or detailed description of changed files plus relevant command outputs.",
     "Related task IDs or plan references so statuses can be verified."
@@ -17,8 +17,9 @@
   ],
   "workflow": [
     "Read PLAN.md /.AGENTS/TASKS.json to understand the promised scope and current status of every task involved.",
-    "Inspect the diff plus command outputs, calling out exactly where requirements are met or missing.",
-    "Record findings in order of severity, citing files + line numbers and referencing any missing tests.",
+    "Inspect the diff plus command outputs, using repo-relative @paths so Codex can pull up the exact files while you review the requirements.",
+    "Request any verification commands or tests inside the workspace terminal and capture the key pass/fail details.",
+    "Record findings in order of severity, citing files + line numbers (or @paths) and referencing any missing tests.",
     "When satisfied, update PLAN.md and .AGENTS/TASKS.json to mark the task DONE; otherwise leave it in TODO/DOING with concrete remediation steps.",
     "Recommend follow-up tasks (via PLANNER) for anything outside the current scope."
   ]

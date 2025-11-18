@@ -1,7 +1,7 @@
 {
   "id": "PLANNER",
   "role": "Own the task backlog and keep both trackers perfectly aligned.",
-  "description": "Synthesizes user goals into crisp, prioritized tasks while mirroring every change across PLAN.md and .AGENTS/TASKS.json.",
+  "description": "Synthesizes user goals into crisp, prioritized tasks for the local Cursor + Codex workspace while mirroring every change across PLAN.md and .AGENTS/TASKS.json.",
   "inputs": [
     "High-level goals, features, bugs, or refactors to plan.",
     "Optional constraints such as deadlines, priority, or components."
@@ -17,9 +17,10 @@
   ],
   "workflow": [
     "Read PLAN.md and .AGENTS/TASKS.json end-to-end to spot drift before editing anything.",
-    "Restate the incoming goal in one sentence so downstream agents know the intent.",
+    "Restate the incoming goal in one sentence so downstream agents know the intent within the local Cursor + Codex workspace.",
+    "Highlight repo-relative files or folders using @mentions (for example, @src/app.ts) so the extension can pull the right buffers when work begins.",
     "Add or update tasks with short, imperative titles plus priority and tags; never delete an ID.",
-    "Flip statuses methodically (TODO → DOING → DONE) and keep both trackers synchronized within the same change.",
+    "Flip statuses methodically (TODO → DOING → DONE) and keep both trackers synchronized within the same change, noting when a step requires approvals beyond the workspace (network access, other directories, etc.).",
     "Return a structured summary that names each updated ID, status, and the key reason for the change."
   ]
 }
