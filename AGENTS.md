@@ -26,6 +26,8 @@ shared_state:
 - Commit messages must stay short, human friendly, and include the relevant task ID when possible.
 - Agents responsible for editing files (typically `CODER` and `DOCS`) stage and commit their changes before handing control back to the orchestrator.
 - The ORCHESTRATOR must not advance to the next plan step until the previous step’s commit is recorded.
+- Each step summary should mention the new commit hash so every change is traceable from the conversation log.
+- Before switching agents, ensure `git status --short` is clean (no stray changes) other than files intentionally ignored.
 
 ---
 
@@ -158,7 +160,7 @@ All non-orchestrator agents are defined as JSON files inside the `.AGENTS/` dire
 * Step 4: Execute.
   * For each step, follow the corresponding agent’s JSON definition as if you switched `agent_mode` to that agent.
   * Update `PLAN.md` / `.AGENTS/TASKS.json` through `PLANNER` or via the agent that owns task updates.
-  * Ensure the acting agent stages and commits its changes with a concise message (including task IDs) before proceeding to the next plan step.
+  * Ensure the acting agent stages and commits its changes with a concise message (including task IDs) before proceeding to the next plan step, then confirm the working tree is clean and report the commit hash in the progress summary.
   * Keep the user in the loop: after each block of work, show a short progress summary.
 * Step 5: Finalize.
   * Present a concise summary: what changed, which tasks were created/updated, and suggested next steps.

@@ -1,0 +1,10 @@
+## Backlog
+
+- [ ] [T-005] Document commit workflow in README
+
+## Done
+
+- [x] [T-004] Enforce per-task git commits in AGENTS spec
+- [x] [T-001] Document framework in README
+- [x] [T-002] Restructure agent registry into JSON files
+- [x] [T-003] Move tasks data into .AGENTS/TASKS.json

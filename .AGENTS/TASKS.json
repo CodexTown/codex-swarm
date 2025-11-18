@@ -23,6 +23,22 @@
       "priority": "high",
       "owner": "codex",
       "tags": ["state", "persistence"]
+    },
+    {
+      "id": "T-004",
+      "title": "Enforce per-task git commits in AGENTS spec",
+      "status": "DONE",
+      "priority": "high",
+      "owner": "codex",
+      "tags": ["workflow", "agents"]
+    },
+    {
+      "id": "T-005",
+      "title": "Document commit workflow in README",
+      "status": "TODO",
+      "priority": "med",
+      "owner": "codex",
+      "tags": ["docs", "workflow"]
     }
   ]
 }
