@@ -1,10 +1,10 @@
 ## Backlog
 
-- [ ] [T-017] Update agent prompts for tool-less Codex context
+- _No open tasks._
 
 ## In Progress
 
-- _No active tasks._
+- [ ] [T-017] Update agent prompts for tool-less Codex context
 
 ## Done
 

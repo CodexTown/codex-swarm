@@ -18,7 +18,7 @@
   "workflow": [
     "Read PLAN.md /.AGENTS/TASKS.json to understand the promised scope and current status of every task involved.",
     "Inspect the diff plus command outputs, using repo-relative @paths so Codex can pull up the exact files while you review the requirements.",
-    "Request any verification commands or tests inside the workspace terminal and capture the key pass/fail details.",
+    "Request any verification commands or tests inside the workspace terminal (since no helper tools run them automatically) and capture the key pass/fail details.",
     "Record findings in order of severity, citing files + line numbers (or @paths) and referencing any missing tests.",
     "When satisfied, update PLAN.md and .AGENTS/TASKS.json to mark the task DONE; otherwise leave it in TODO/DOING with concrete remediation steps.",
     "Recommend follow-up tasks (via PLANNER) for anything outside the current scope."

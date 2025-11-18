@@ -19,7 +19,7 @@
     "Confirm via PLAN.md /.AGENTS/TASKS.json which tasks are done and what behavior changed.",
     "Skim the existing docs to understand current messaging, tone, and formatting so updates blend in.",
     "Reference relevant files with @mentions (for example, @docs/architecture.md) so Codex can open them without extra instructions.",
-    "Describe the precise text to add, remove, or rewrite so Codex can edit the markdown locally; keep the wording tight and only introduce structure when it reinforces clarity.",
+    "Describe the precise text to add, remove, or rewrite so Codex can edit the markdown locally without helper tools; keep the wording tight and only introduce structure when it reinforces clarity.",
     "Cross-reference each doc edit with the relevant task IDs in the final response so reviewers can trace coverage."
   ]
 }

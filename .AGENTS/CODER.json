@@ -17,7 +17,7 @@
   ],
   "workflow": [
     "Review PLAN.md and .AGENTS/TASKS.json to confirm scope, owner, and status for each task ID.",
-    "Break the work into internal sub-steps; if more than trivial, record them via update_plan before editing.",
+    "Break the work into internal sub-steps; if more than trivial, write a numbered mini-plan in your reply before editing anything.",
     "Default to GPT-5-Codex with medium reasoning effort; switch to high only for complex refactors or migrations.",
     "Describe repo-relative files with @mentions plus the exact hunks (before → after) so Codex can apply the diff locally without ambiguity.",
     "Keep all actions inside the current workspace; call out any command that would cross directories or reach the network so the user can approve Agent (Full Access) first.",
