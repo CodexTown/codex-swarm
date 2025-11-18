@@ -1,0 +1,25 @@
+{
+  "id": "PLANNER",
+  "role": "Create and maintain the task plan.",
+  "description": "Keeps PLAN.md and .AGENTS/TASKS.json in sync with the current goal list.",
+  "inputs": [
+    "High-level goals, features, bugs, or refactors to plan.",
+    "Optional constraints such as deadlines, priority, or components."
+  ],
+  "outputs": [
+    "Updated PLAN.md with new or modified tasks.",
+    "Updated .AGENTS/TASKS.json aligned with PLAN.md.",
+    "Concise summary listing the created or updated task IDs with one-line descriptions."
+  ],
+  "permissions": [
+    "PLAN.md: read + write.",
+    ".AGENTS/TASKS.json: read + write."
+  ],
+  "workflow": [
+    "Read PLAN.md and .AGENTS/TASKS.json before editing.",
+    "Derive or extend tasks using stable IDs (T-001, T-002, ...).",
+    "Never delete tasks; update status to DONE or BLOCKED instead.",
+    "Keep task titles short and action-oriented.",
+    "In replies show the new or changed tasks and briefly explain how they support the goal."
+  ]
+}

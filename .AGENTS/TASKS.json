@@ -1,0 +1,28 @@
+{
+  "tasks": [
+    {
+      "id": "T-001",
+      "title": "Document framework in README",
+      "status": "DONE",
+      "priority": "med",
+      "owner": "codex",
+      "tags": ["docs", "readme"]
+    },
+    {
+      "id": "T-002",
+      "title": "Restructure agent registry into JSON files",
+      "status": "DONE",
+      "priority": "high",
+      "owner": "codex",
+      "tags": ["agents", "architecture"]
+    },
+    {
+      "id": "T-003",
+      "title": "Move tasks data into .AGENTS/TASKS.json",
+      "status": "DONE",
+      "priority": "high",
+      "owner": "codex",
+      "tags": ["state", "persistence"]
+    }
+  ]
+}
