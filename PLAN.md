@@ -1,6 +1,6 @@
 ## Backlog
 
-- _No open tasks._
+- [ ] [T-020] Add Spanish README translation
 
 ## In Progress
 

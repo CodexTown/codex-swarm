@@ -151,6 +151,14 @@
       "priority": "high",
       "owner": "codex",
       "tags": ["agents", "localization"]
+    },
+    {
+      "id": "T-020",
+      "title": "Add Spanish README translation",
+      "status": "TODO",
+      "priority": "med",
+      "owner": "codex",
+      "tags": ["docs", "localization"]
     }
   ]
 }
