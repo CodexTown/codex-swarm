@@ -111,11 +111,9 @@ All non-orchestrator agents are defined as JSON files inside the `.AGENTS/` dire
 
 ## Current JSON Agents
 
-- `.AGENTS/PLANNER.json` — Maintains the backlog in `PLAN.md` and `.AGENTS/TASKS.json`.
-- `.AGENTS/CODER.json` — Implements changes aligned with the plan.
-- `.AGENTS/REVIEWER.json` — Reviews changes and updates task status.
-- `.AGENTS/DOCS.json` — Synchronizes documentation with completed work.
-- `.AGENTS/CREATOR.json` — Designs and registers new specialist agents when the existing roster lacks required expertise.
+- The orchestrator regenerates this list at startup by scanning `.AGENTS/*.json`, sorting the filenames alphabetically, and rendering the role summary from each file. Manual edits are discouraged because the list is derived data.
+- Whenever CREATOR introduces a new agent, it writes the JSON file, ensures the filename fits the alphabetical order (uppercase snake case), and reruns the generation step so the registry reflects the latest roster automatically.
+- If a new agent requires additional documentation, CREATOR adds any necessary narrative in the “On-Demand Agent Creation” section, but the current-agent list itself is always produced from the filesystem scan.
 
 ## JSON Template for New Agents
 
@@ -148,8 +146,8 @@ All non-orchestrator agents are defined as JSON files inside the `.AGENTS/` dire
 
 - When the PLANNER determines that no existing agent can fulfill a plan step, it must schedule the `CREATOR` agent and provide the desired skill set, constraints, and target deliverables.
 - `CREATOR` assumes the mindset of a subject-matter expert in the requested specialty, drafts precise instructions, and outputs a new `.AGENTS/<ID>.json` following the template above.
-- As part of that run, `CREATOR` updates this `AGENTS.md` registry so the new agent is immediately discoverable, then stages and commits the additions with the relevant task ID.
-- After creation, the orchestrator may rerun planning to leverage the new agent with zero manual wiring, reducing friction and keeping the registry optimized.
+- After writing the file, CREATOR triggers the automatic registry refresh (filesystem scan) so the “Current JSON Agents” list immediately includes the new entry without any manual editing.
+- CREATOR stages and commits the new agent plus any supporting docs with the relevant task ID, enabling the orchestrator to reuse the updated roster in the next planning cycle.
 
 ---
 
