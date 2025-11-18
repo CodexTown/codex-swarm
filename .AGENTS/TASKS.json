@@ -83,7 +83,7 @@
     {
       "id": "T-011",
       "title": "Evaluate workflow and suggest improvements",
-      "status": "TODO",
+      "status": "DONE",
       "priority": "med",
       "owner": "codex",
       "tags": ["workflow", "analysis"]

@@ -1,9 +1,14 @@
 ## Backlog
 
-- [ ] [T-011] Evaluate current workflow and suggest improvements
+- _No open tasks._
+
+## In Progress
+
+- _No active tasks._
 
 ## Done
 
+- [x] [T-011] Evaluate current workflow and suggest improvements
 - [x] [T-010] Automate agent registry updates
 - [x] [T-009] Define status transition protocol
 - [x] [T-008] Document repository structure in README
