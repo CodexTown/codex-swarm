@@ -1,6 +1,6 @@
 ## Backlog
 
-- [ ] [T-025] Clarify emoji commit workflow
+- _No open tasks._
 
 ## In Progress
 
@@ -36,3 +36,5 @@
   - Review: Created README.es.md and updated @GLOSSARY.json with Spanish equivalents for existing terms.
 - [x] [T-024] Revise glossary schema for translations
   - Review: Updated the TRANSLATOR workflow and converted @GLOSSARY.json so English stays canonical while localized entries keep their own terms and descriptions.
+- [x] [T-025] Clarify emoji commit workflow
+  - Review: Updated @AGENTS.md and @README.md so commit messages start with meaningful emojis and the finishing agent summarizes the completed plan item.
