@@ -163,7 +163,7 @@
     {
       "id": "T-021",
       "title": "Enhance translator glossary workflow",
-      "status": "TODO",
+      "status": "DOING",
       "priority": "high",
       "owner": "codex",
       "tags": ["agents", "localization"]

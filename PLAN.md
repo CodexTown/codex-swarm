@@ -1,10 +1,10 @@
 ## Backlog
 
-- [ ] [T-021] Enhance translator glossary workflow
+- _No open tasks._
 
 ## In Progress
 
-- _No active tasks._
+- [ ] [T-021] Enhance translator glossary workflow
 
 ## Done
 
