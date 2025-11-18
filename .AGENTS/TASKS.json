@@ -131,7 +131,7 @@
     {
       "id": "T-017",
       "title": "Update agent prompts for tool-less Codex context",
-      "status": "DOING",
+      "status": "DONE",
       "priority": "high",
       "owner": "codex",
       "tags": ["prompting", "agents"]
