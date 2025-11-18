@@ -143,6 +143,14 @@
       "priority": "high",
       "owner": "codex",
       "tags": ["docs", "agents"]
+    },
+    {
+      "id": "T-019",
+      "title": "Add glossary-aware translation agent",
+      "status": "TODO",
+      "priority": "high",
+      "owner": "codex",
+      "tags": ["agents", "localization"]
     }
   ]
 }

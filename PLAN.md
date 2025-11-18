@@ -1,6 +1,6 @@
 ## Backlog
 
-- _No open tasks._
+- [ ] [T-019] Add glossary-aware translation agent
 
 ## In Progress
 
