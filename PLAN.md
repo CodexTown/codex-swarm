@@ -4,7 +4,7 @@
 
 ## In Progress
 
-- _No active tasks._
+- [ ] [T-023] Add Spanish README translation
 
 ## Done
 

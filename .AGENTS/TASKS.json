@@ -175,6 +175,14 @@
       "priority": "med",
       "owner": "codex",
       "tags": ["docs", "localization"]
+    },
+    {
+      "id": "T-023",
+      "title": "Add Spanish README translation",
+      "status": "DOING",
+      "priority": "med",
+      "owner": "codex",
+      "tags": ["docs", "localization"]
     }
   ]
 }
