@@ -1,24 +1,19 @@
 # ✨ Project Tasks Board
 
-_Last updated: 2025-11-21 18:16:54 UTC_
+_Last updated: 2025-11-21 18:17:16 UTC_
 
 ## **⭐ Summary**
 - 🧮 **Total:** 34
 - 📋 **Backlog:** 0
-- 🚧 **In Progress:** 1
+- 🚧 **In Progress:** 0
 - ⛔ **Blocked:** 0
-- ✅ **Done:** 33
+- ✅ **Done:** 34
 
 ## **📋 Backlog**
 _No open tasks._
 
 ## **🚧 In Progress**
-- ⚙️ **[T-034] Bold status, description, commit labels**
-  - **_Status:_** *In Progress*
-  - **Priority:** `high` • **Owner:** `🤖 CODEX` • **Tags:** `docs`, `workflow`, `formatting`
-  - **_Description:_** Render the `_Status`, `_Description`, and `_Commit` prefixes as bold text while leaving their italic suffixes intact.
-  - 💬 **Comments:**
-    - _No comments yet._
+_No active tasks._
 
 ## **⛔ Blocked**
 _No blocked tasks._
@@ -284,3 +279,11 @@ _No blocked tasks._
   - **_Commit:_** [`2f93325`](https://github.com/CodexTown/codex-swarm/commit/2f93325a23837b89b0431b3219cee725b6902583) — 🛠️ T-033 style tasks board
   - 💬 **Comments:**
     - **reviewer:** _Verified the board now bolds headings, code-highlights metadata, uppercases agent owners with icons, and links commit hashes._
+
+- ✅ **[T-034] Bold status, description, commit labels**
+  - **_Status:_** *Done*
+  - **Priority:** `high` • **Owner:** `🤖 CODEX` • **Tags:** `docs`, `workflow`, `formatting`
+  - **_Description:_** Render the `_Status`, `_Description`, and `_Commit` prefixes as bold text while leaving their italic suffixes intact.
+  - **_Commit:_** [`f520084`](https://github.com/CodexTown/codex-swarm/commit/f52008459f7415f33a7d3064d064ec841718d00e) — 🛠️ T-034 bold label headers
+  - 💬 **Comments:**
+    - **reviewer:** _Confirmed the label prefixes are bold while the italics remain on the suffix, so the board matches the request._
