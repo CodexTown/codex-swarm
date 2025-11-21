@@ -299,10 +299,25 @@
       "id": "T-027",
       "title": "Add UPDATER optimization agent",
       "description": "Introduce an agent dedicated to auditing the repository and proposing optimizations to existing agents when explicitly requested.",
-      "status": "DOING",
+      "status": "DONE",
       "priority": "high",
       "owner": "codex",
       "tags": ["agents", "optimization"],
+      "comments": [
+        {
+          "author": "reviewer",
+          "body": "Validated the new UPDATER agent and documented that it only runs on explicit optimization requests."
+        }
+      ]
+    },
+    {
+      "id": "T-028",
+      "title": "Add virtualenv installation reminder",
+      "description": "Add a global reminder that any external libraries required by scripts must be installed only inside virtual environments.",
+      "status": "TODO",
+      "priority": "med",
+      "owner": "docs",
+      "tags": ["docs", "workflow"],
       "comments": []
     }
   ]
