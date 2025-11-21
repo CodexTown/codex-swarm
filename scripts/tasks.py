@@ -7,7 +7,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Dict, List
 
-ROOT = Path(__file__).resolve().parent
+SCRIPT_DIR = Path(__file__).resolve().parent
+ROOT = SCRIPT_DIR.parent
 TASKS_PATH = ROOT / "tasks.json"
 OUTPUT_PATH = ROOT / "tasks.md"
 
