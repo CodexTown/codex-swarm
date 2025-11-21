@@ -1,24 +1,19 @@
 # ✨ Project Tasks Board
 
-_Last updated: 2025-11-21 16:10:07 UTC_
+_Last updated: 2025-11-21 16:11:20 UTC_
 
 ## ⭐ Summary
 - 🧮 **Total:** 31
 - 📋 **Backlog:** 0
-- 🚧 **In Progress:** 1
+- 🚧 **In Progress:** 0
 - ⛔ **Blocked:** 0
-- ✅ **Done:** 30
+- ✅ **Done:** 31
 
 ## 📋 Backlog
 _No open tasks._
 
 ## 🚧 In Progress
-- ⚙️ **[T-031] Sync README with current agent lineup**
-  - _Status:_ *In Progress*
-  - **Priority:** med • **Owner:** docs • **Tags:** docs, readme
-  - _Description:_ Refresh README.md so it describes the existing agents (including UPDATER), workflow rules, and repository layout that reflect the latest codebase.
-  - 💬 **Comments:**
-    - _No comments yet._
+_No active tasks._
 
 ## ⛔ Blocked
 _No blocked tasks._
@@ -233,3 +228,10 @@ _No blocked tasks._
   - _Description:_ Align the CODER role with actual responsibilities by expanding permissions and workflow details per the recent request.
   - 💬 **Comments:**
     - **CODER:** _Expanded permissions, workflow detail, and verification guidance to match the current responsibilities._
+
+- ✅ **[T-031] Sync README with current agent lineup**
+  - _Status:_ *Done*
+  - **Priority:** med • **Owner:** docs • **Tags:** docs, readme
+  - _Description:_ Refresh README.md so it describes the existing agents (including UPDATER), workflow rules, and repository layout that reflect the latest codebase.
+  - 💬 **Comments:**
+    - **docs:** _README now mentions the UPDATER optimization agent and lifecycle so the doc mirrors the current codebase._
