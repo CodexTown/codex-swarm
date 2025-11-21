@@ -1,16 +1,21 @@
 # ✨ Project Tasks Board
 
-_Last updated: 2025-11-21 16:11:20 UTC_
+_Last updated: 2025-11-21 16:21:24 UTC_
 
 ## ⭐ Summary
-- 🧮 **Total:** 31
-- 📋 **Backlog:** 0
+- 🧮 **Total:** 32
+- 📋 **Backlog:** 1
 - 🚧 **In Progress:** 0
 - ⛔ **Blocked:** 0
 - ✅ **Done:** 31
 
 ## 📋 Backlog
-_No open tasks._
+- 📝 **[T-032] Stylize README with icons and ASCII art**
+  - _Status:_ *Backlog*
+  - **Priority:** med • **Owner:** docs • **Tags:** docs, readme
+  - _Description:_ Enhance README.md by introducing inline icons, refined formatting, and an ASCII-art title while keeping the workflow explanation intact.
+  - 💬 **Comments:**
+    - _No comments yet._
 
 ## 🚧 In Progress
 _No active tasks._
