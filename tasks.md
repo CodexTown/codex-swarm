@@ -1,24 +1,19 @@
 # ✨ Project Tasks Board
 
-_Last updated: 2025-11-21 18:24:41 UTC_
+_Last updated: 2025-11-21 18:25:18 UTC_
 
 ## **⭐ Summary**
 - 🧮 **Total:** 35
 - 📋 **Backlog:** 0
-- 🚧 **In Progress:** 1
+- 🚧 **In Progress:** 0
 - ⛔ **Blocked:** 0
-- ✅ **Done:** 34
+- ✅ **Done:** 35
 
 ## **📋 Backlog**
 _No open tasks._
 
 ## **🚧 In Progress**
-- ⚙️ **[T-035] Remove italic on description label**
-  - **_Status:_** *In Progress*
-  - **Priority:** `med` • **Owner:** `🤖 CODEX` • **Tags:** `docs`, `workflow`
-  - **Description:** Render the description label without italics so only the bold text shows.
-  - 💬 **Comments:**
-    - _No comments yet._
+_No active tasks._
 
 ## **⛔ Blocked**
 _No blocked tasks._
@@ -292,3 +287,11 @@ _No blocked tasks._
   - **_Commit:_** [`f520084`](https://github.com/CodexTown/codex-swarm/commit/f52008459f7415f33a7d3064d064ec841718d00e) — 🛠️ T-034 bold label headers
   - 💬 **Comments:**
     - **reviewer:** _Confirmed the label prefixes are bold while the italics remain on the suffix, so the board matches the request._
+
+- ✅ **[T-035] Remove italic on description label**
+  - **_Status:_** *Done*
+  - **Priority:** `med` • **Owner:** `🤖 CODEX` • **Tags:** `docs`, `workflow`
+  - **Description:** Render the description label without italics so only the bold text shows.
+  - **_Commit:_** [`6c5bc66`](https://github.com/CodexTown/codex-swarm/commit/6c5bc662a3f71b8e206a48133cc401033142ccd2) — 🛠️ T-035 remove description italic
+  - 💬 **Comments:**
+    - **reviewer:** _Confirmed the description label is no longer italicized yet still stands out via bold styling._
