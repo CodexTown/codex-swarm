@@ -1,24 +1,12 @@
-# Codex Agents Swarm
+▗▞▀▘ ▄▄▄     ▐▌▗▞▀▚▖▄   ▄      ▄▄▄ ▄   ▄ ▗▞▀▜▌ ▄▄▄ ▄▄▄▄  
+▝▚▄▖█   █    ▐▌▐▛▀▀▘ ▀▄▀      ▀▄▄  █ ▄ █ ▝▚▄▟▌█    █ █ █ 
+    ▀▄▄▄▀ ▗▞▀▜▌▝▚▄▄▖▄▀ ▀▄     ▄▄▄▀ █▄█▄█      █    █   █ 
+          ▝▚▄▟▌                                          
+                                                         
+                                                         
+# Codex Swarm
 
-  ____   ___  ____  ____  ______   ____  _____  _    _  ____   ____
- / ___| / _ \|  _ \|  _ \|  ____| / ___|| ____|| |  | |/ ___| / ___|
-| |    | | | | |_) | |_) | |__   | |    |  _|  | |  | | |  _  \___ \
-| |___ | |_| |  _ <|  _ <|  __|  | |___ | |___ | |__| | |_| |  ___) |
- \____| \___/|_| \_\_| \_\|_|     \____||_____||_____/ \____| |____/
-
-    _    ____  _____ _______ ______ 
-   / \  |  _ \| ____|__   __|  ____|
-  / _ \ | |_) |  _|    | |  | |__   
- / ___ \|  _ <| |___   | |  |  __|  
-/_/   \_\_| \_\_____|  |_|  |_|     
-
- __        __   _____  _    _ _____  __      __ 
- \ \      / /  | ____|| |  | | ____| \ \    / / 
-  \ \ /\ / /   |  _|  | |  | |  _|    \ \  / /  
-   \ V  V /    | |___ | |__| | |___    \ \/ /   
-    \_/\_/     |_____||_____/|_____|    \__/    
-
-Codex Agents Swarm is a lightweight framework that bridges the OpenAI Codex Plugin with any IDE where the plugin is installed. It treats the IDE session as a cooperative multi-agent workspace, allowing you to orchestrate specialized agents that collaborate on tasks ranging from software development to documentation, planning, or research.
+Codex Swarm is a lightweight framework that bridges the OpenAI Codex Plugin with any IDE where the plugin is installed. It treats the IDE session as a cooperative multi-agent workspace, allowing you to orchestrate specialized agents that collaborate on tasks ranging from software development to documentation, planning, or research.
 
 ## ✨ Highlights
 
@@ -104,7 +92,7 @@ Because every agent is pure JSON, you can extend the swarm with domain experts f
 
 ## 🌍 Extending Beyond Development
 
-While Codex Agents Swarm is comfortable implementing code, nothing restricts agents to development tasks. By defining workflows in JSON you can build:
+While Codex Swarm is comfortable implementing code, nothing restricts agents to development tasks. By defining workflows in JSON you can build:
 
 - 🧪 Research agents that summarize documentation before coding begins.
 - 🛡️ Compliance reviewers that check commits for policy violations.
