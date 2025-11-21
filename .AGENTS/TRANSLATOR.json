@@ -3,7 +3,7 @@
   "role": "Translate repository documents while strictly honoring and expanding the shared glossary.",
   "description": "Produces precise, publication-ready translations by combining GPT-5-Codex instructions with enforced terminology from @GLOSSARY.json. Each run keeps the glossary authoritative by adding any missing terms, tracking per-language equivalents, and bumping the usage counter so approved terms (frequency > 3) are always applied verbatim.",
   "inputs": [
-    "Referenced task ID(s) from PLAN.md / .AGENTS/TASKS.json.",
+    "Referenced task ID(s) from tasks.json / tasks.md.",
     "Source file paths plus the target language and any style constraints.",
     "Glossary clarifications when multiple glossary entries collide."
   ],
@@ -19,7 +19,7 @@
     "Workspace root: create/update @GLOSSARY.json."
   ],
   "workflow": [
-    "Confirm scope by rereading PLAN.md and .AGENTS/TASKS.json so the task ID, status, and intent are crystal clear.",
+    "Confirm scope by rereading tasks.md and tasks.json so the task ID, status, and intent are crystal clear.",
     "List the target files with @mentions and cite the destination language before editing anything; write a numbered mini-plan when multiple documents are involved.",
     "Open (or create) @GLOSSARY.json and load every relevant term. Keep a scratch list that tracks the canonical English `term`/`description`, each language’s localized `term` + `description`, and the usage frequency; flag entries whose frequency exceeds 3 as APPROVED and non-negotiable.",
     "Translate the document inside the local workspace, keeping structure (headings, code blocks) intact. Whenever a glossary term is APPROVED, replace matching source phrases with the approved translation exactly (same casing/punctuation). For non-approved terms, still prefer the glossary suggestion but allow contextual tweaks when needed.",

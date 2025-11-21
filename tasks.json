@@ -1,0 +1,299 @@
+{
+  "tasks": [
+    {
+      "id": "T-001",
+      "title": "Document framework in README",
+      "description": "Summarize the overall multi-agent workflow so newcomers can understand the repository quickly.",
+      "status": "DONE",
+      "priority": "med",
+      "owner": "codex",
+      "tags": ["docs", "readme"],
+      "comments": []
+    },
+    {
+      "id": "T-002",
+      "title": "Restructure agent registry into JSON files",
+      "description": "Split every reusable agent prompt into a dedicated JSON file under .AGENTS for easier maintenance.",
+      "status": "DONE",
+      "priority": "high",
+      "owner": "codex",
+      "tags": ["agents", "architecture"],
+      "comments": []
+    },
+    {
+      "id": "T-003",
+      "title": "Move tasks data into .AGENTS/TASKS.json",
+      "description": "Ensure task state is available in a machine-readable JSON file for Codex automation.",
+      "status": "DONE",
+      "priority": "high",
+      "owner": "codex",
+      "tags": ["state", "persistence"],
+      "comments": []
+    },
+    {
+      "id": "T-004",
+      "title": "Enforce per-task git commits in AGENTS spec",
+      "description": "Document the rule that every plan item must end with its own git commit for traceability.",
+      "status": "DONE",
+      "priority": "high",
+      "owner": "codex",
+      "tags": ["workflow", "agents"],
+      "comments": []
+    },
+    {
+      "id": "T-005",
+      "title": "Document commit workflow in README",
+      "description": "Expand the README with details on emoji commits and atomic task tracking.",
+      "status": "DONE",
+      "priority": "med",
+      "owner": "codex",
+      "tags": ["docs", "workflow"],
+      "comments": []
+    },
+    {
+      "id": "T-006",
+      "title": "Add Agent Creator workflow",
+      "description": "Describe how new specialist agents are proposed, reviewed, and added to the registry.",
+      "status": "DONE",
+      "priority": "high",
+      "owner": "codex",
+      "tags": ["agents", "automation"],
+      "comments": []
+    },
+    {
+      "id": "T-007",
+      "title": "Improve commit message guidance",
+      "description": "Tighten the instructions around writing meaningful, emoji-prefixed commit messages.",
+      "status": "DONE",
+      "priority": "high",
+      "owner": "codex",
+      "tags": ["workflow", "git"],
+      "comments": []
+    },
+    {
+      "id": "T-008",
+      "title": "Document repository structure in README",
+      "description": "Add a quick-start tour of key files and directories so contributors know where to work.",
+      "status": "DONE",
+      "priority": "med",
+      "owner": "codex",
+      "tags": ["docs", "readme"],
+      "comments": []
+    },
+    {
+      "id": "T-009",
+      "title": "Define status transition protocol",
+      "description": "Clarify which agent owns each state change and how statuses move between TODO/DOING/DONE/BLOCKED.",
+      "status": "DONE",
+      "priority": "high",
+      "owner": "codex",
+      "tags": ["workflow", "tasks"],
+      "comments": []
+    },
+    {
+      "id": "T-010",
+      "title": "Automate agent registry updates",
+      "description": "Explain how the orchestrator scans .AGENTS/*.json dynamically instead of relying on a manual list.",
+      "status": "DONE",
+      "priority": "med",
+      "owner": "codex",
+      "tags": ["agents", "automation"],
+      "comments": []
+    },
+    {
+      "id": "T-011",
+      "title": "Evaluate workflow and suggest improvements",
+      "description": "Review the end-to-end authoring flow and capture improvement ideas inside the docs.",
+      "status": "DONE",
+      "priority": "med",
+      "owner": "codex",
+      "tags": ["workflow", "analysis"],
+      "comments": []
+    },
+    {
+      "id": "T-012",
+      "title": "Generalize AGENTS.md to remove agent-specific guidance",
+      "description": "Keep AGENTS.md focused on cross-agent protocol instead of baking in individual instructions.",
+      "status": "DONE",
+      "priority": "med",
+      "owner": "codex",
+      "tags": ["docs", "agents"],
+      "comments": []
+    },
+    {
+      "id": "T-013",
+      "title": "Align agent prompts with GPT-5.1 guide",
+      "description": "Update every agent spec so prompts match the GPT-5.1 best practices.",
+      "status": "DONE",
+      "priority": "high",
+      "owner": "codex",
+      "tags": ["prompting", "agents"],
+      "comments": []
+    },
+    {
+      "id": "T-014",
+      "title": "Document Cursor + Codex local workflow in AGENTS.md",
+      "description": "Add environment assumptions for local-only workflows without remote runtimes.",
+      "status": "DONE",
+      "priority": "high",
+      "owner": "codex",
+      "tags": ["docs", "agents"],
+      "comments": []
+    },
+    {
+      "id": "T-015",
+      "title": "Align agent prompts with Cursor + Codex constraints",
+      "description": "Ensure prompts mention the IDE limitations so agents avoid referencing unavailable tools.",
+      "status": "DONE",
+      "priority": "high",
+      "owner": "codex",
+      "tags": ["prompting", "agents"],
+      "comments": []
+    },
+    {
+      "id": "T-016",
+      "title": "Remove tool references from AGENTS.md for Codex-only workflow",
+      "description": "Strip references to unsupported helper tools to keep instructions aligned with the local stack.",
+      "status": "DONE",
+      "priority": "high",
+      "owner": "codex",
+      "tags": ["docs", "agents"],
+      "comments": []
+    },
+    {
+      "id": "T-017",
+      "title": "Update agent prompts for tool-less Codex context",
+      "description": "Reword prompts so agents do not assume access to external search or commands.",
+      "status": "DONE",
+      "priority": "high",
+      "owner": "codex",
+      "tags": ["prompting", "agents"],
+      "comments": []
+    },
+    {
+      "id": "T-018",
+      "title": "Streamline AGENTS.md English guidelines",
+      "description": "Trim redundant English-language instructions and keep the doc crisp.",
+      "status": "DONE",
+      "priority": "high",
+      "owner": "codex",
+      "tags": ["docs", "agents"],
+      "comments": []
+    },
+    {
+      "id": "T-019",
+      "title": "Add glossary-aware translation agent",
+      "description": "Introduce a translator agent that respects glossary entries when localizing README content.",
+      "status": "DONE",
+      "priority": "high",
+      "owner": "codex",
+      "tags": ["agents", "localization"],
+      "comments": []
+    },
+    {
+      "id": "T-020",
+      "title": "Add Spanish README translation",
+      "description": "Provide a Spanish version of the README while keeping glossary terms consistent.",
+      "status": "DONE",
+      "priority": "med",
+      "owner": "codex",
+      "tags": ["docs", "localization"],
+      "comments": [
+        {
+          "author": "reviewer",
+          "body": "Added README.es.md and ensured glossary coverage for Spanish terminology."
+        }
+      ]
+    },
+    {
+      "id": "T-021",
+      "title": "Enhance translator glossary workflow",
+      "description": "Teach the translator agent how to maintain glossary metadata and usage counts automatically.",
+      "status": "DONE",
+      "priority": "high",
+      "owner": "codex",
+      "tags": ["agents", "localization"],
+      "comments": [
+        {
+          "author": "reviewer",
+          "body": "Updated the TRANSLATOR agent so every run maintains GLOSSARY.json, tracks usage frequencies, and enforces approved terms."
+        }
+      ]
+    },
+    {
+      "id": "T-022",
+      "title": "Add Russian README translation",
+      "description": "Add a Russian localization of the README plus supporting glossary entries.",
+      "status": "DONE",
+      "priority": "med",
+      "owner": "codex",
+      "tags": ["docs", "localization"],
+      "comments": [
+        {
+          "author": "reviewer",
+          "body": "Added README.ru.md plus GLOSSARY.json context so translation terminology stays consistent."
+        }
+      ]
+    },
+    {
+      "id": "T-023",
+      "title": "Add Spanish README translation",
+      "description": "Deliver another Spanish README update incorporating the refined glossary process.",
+      "status": "DONE",
+      "priority": "med",
+      "owner": "codex",
+      "tags": ["docs", "localization"],
+      "comments": [
+        {
+          "author": "reviewer",
+          "body": "Created README.es.md and updated GLOSSARY.json with Spanish equivalents for existing terms."
+        }
+      ]
+    },
+    {
+      "id": "T-024",
+      "title": "Revise glossary schema for translations",
+      "description": "Restructure the glossary so English remains canonical while localized entries store metadata per language.",
+      "status": "DONE",
+      "priority": "high",
+      "owner": "codex",
+      "tags": ["docs", "localization", "glossary"],
+      "comments": [
+        {
+          "author": "reviewer",
+          "body": "Updated the TRANSLATOR workflow and converted GLOSSARY.json so languages own their preferred terms and descriptions."
+        }
+      ]
+    },
+    {
+      "id": "T-025",
+      "title": "Clarify emoji commit workflow",
+      "description": "Clarify how commits should start with emojis and summarize completed plan items.",
+      "status": "DONE",
+      "priority": "high",
+      "owner": "codex",
+      "tags": ["workflow", "git"],
+      "comments": [
+        {
+          "author": "reviewer",
+          "body": "Updated AGENTS.md and README.md so commit messages start with meaningful emojis referencing the finished plan item."
+        }
+      ]
+    },
+    {
+      "id": "T-026",
+      "title": "Enforce atomic task planning",
+      "description": "Ensure the PLANNER splits every request into single-owner tasks with unique commits.",
+      "status": "DONE",
+      "priority": "high",
+      "owner": "codex",
+      "tags": ["workflow", "planning"],
+      "comments": [
+        {
+          "author": "reviewer",
+          "body": "Updated .AGENTS/PLANNER.json, AGENTS.md, and README.md so the PLANNER keeps tasks atomic."
+        }
+      ]
+    }
+  ]
+}

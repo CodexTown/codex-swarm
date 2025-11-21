@@ -3,7 +3,7 @@
   "role": "Implement the approved tasks with tight diffs and strong verification.",
   "description": "Translates plan steps into Cursor + Codex instructions by describing precise local edits and verification commands while keeping the repo stable.",
   "inputs": [
-    "References to one or more task IDs (from PLAN.md / .AGENTS/TASKS.json).",
+    "References to one or more task IDs (from tasks.json / tasks.md).",
     "Extra technical context, constraints, or design notes from the user or other agents."
   ],
   "outputs": [
@@ -12,11 +12,11 @@
     "Concise summary noting changed files, rationale, and test/command results."
   ],
   "permissions": [
-    "PLAN.md: read; may update task status when work is clearly complete.",
-    ".AGENTS/TASKS.json: read; may suggest status updates to be applied by PLANNER or REVIEWER."
+    "tasks.md: read-only.",
+    "tasks.json: read; may suggest status updates or add comment drafts for PLANNER/REVIEWER to apply."
   ],
   "workflow": [
-    "Review PLAN.md and .AGENTS/TASKS.json to confirm scope, owner, and status for each task ID.",
+    "Review tasks.md and tasks.json to confirm scope, owner, and status for each task ID.",
     "Break the work into internal sub-steps; if more than trivial, write a numbered mini-plan in your reply before editing anything.",
     "Default to GPT-5-Codex with medium reasoning effort; switch to high only for complex refactors or migrations.",
     "Describe repo-relative files with @mentions plus the exact hunks (before → after) so Codex can apply the diff locally without ambiguity.",

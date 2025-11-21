@@ -2,8 +2,8 @@
 AGENTS_SPEC: v0.2
 default_agent: ORCHESTRATOR
 shared_state:
-  - PLAN.md
-  - .AGENTS/TASKS.json
+  - tasks.json
+  - tasks.md
 -->
 
 # CODEX IDE CONTEXT
@@ -21,8 +21,8 @@ shared_state:
   - Think step by step internally. DO NOT print full reasoning, only concise results, plans, and key checks.
   - Prefer structured outputs (lists, tables, JSON) when they help execution.
 - If user instructions conflict with this file, this file wins unless the user explicitly overrides it for a one-off run.
-- Never invent external facts. For tasks and project state, use `PLAN.md` and `.AGENTS/TASKS.json` as the sources of truth.
-- The workspace is always a git repository. After completing each atomic task from `PLAN.md`, create a concise, human-readable commit before continuing.
+- Never invent external facts. For tasks and project state, use the canonical `tasks.json` (plus the generated `tasks.md`) as the sources of truth.
+- The workspace is always a git repository. After completing each atomic task tracked in `tasks.json`, create a concise, human-readable commit before continuing.
 
 ---
 
@@ -63,41 +63,13 @@ shared_state:
 
 # SHARED_STATE
 
-## PLAN.md
+## Task Tracking
 
-Purpose: human-readable list of tasks and statuses.
+### `tasks.json` (canonical)
 
-Format (Markdown):
+Purpose: single machine-editable backlog that stores every task, including rich context.
 
-- One task per line in sections like `Backlog`, `In Progress`, `Done`.
-- Line format (checkbox + ID + short title):
-
-- `[ ] [T-001] Add Normalizer Service`
-- `[x] [T-000] Initialize repository`
-- Whenever a task moves into `Done`, append an indented `  - Review: ...` line right below it. Keep the review to one or two human-readable sentences that call out the key files, behaviors, or tests touched so future readers understand the change without opening the commit.
-- Keep tasks atomic: PLANNER decomposes each user request into multiple IDs when needed so every task represents a single deliverable that one specialist agent can finish independently (implementation, docs, review, etc.).
-
-Allowed statuses (semantic, not necessarily printed): `TODO`, `DOING`, `DONE`, `BLOCKED`.
-
-### Status Transition Protocol
-
-- **Create / Reprioritize (PLANNER only).** PLANNER is the sole writer of new tasks and the only agent that may change priorities or mark work as `BLOCKED`; when blocking a task it must capture the reason in both files.
-- **Start Work (specialist agent).** Whoever assumes ownership flips the task to `DOING` in both trackers before editing files, signaling that the work is in progress.
-- **Complete Work (review/doc specialist).** The reviewer or documentation-focused agent marks tasks `DONE` only after validating the deliverable; otherwise they request follow-up work. When flipping to `DONE`, they must also write the review line described above so the PLAN captures a concise summary of the validated changes.
-- **Status Sync.** Every transition must be mirrored in `PLAN.md` and `.AGENTS/TASKS.json` within the same commit, referencing the affected task IDs in the message. If a discrepancy is detected, pause and reconcile before continuing.
-- **Escalations.** Agents lacking permission for a desired transition must request PLANNER involvement or schedule an appropriate reviewer via the plan rather than editing statuses directly.
-
-Protocol:
-
-- Before changing tasks: read the whole `PLAN.md`.
-- When updating: modify existing lines or append new ones; do NOT silently drop tasks.
-- In your reply: list all task IDs you changed and how.
-
-## .AGENTS/TASKS.json
-
-Purpose: machine-readable task state.
-
-Minimal schema:
+Schema (JSON):
 
 ```json
 {
@@ -105,20 +77,46 @@ Minimal schema:
     {
       "id": "T-001",
       "title": "Add Normalizer Service",
+      "description": "What the task accomplishes and why it matters.",
       "status": "TODO",
       "priority": "med",
       "owner": "human",
-      "tags": ["codextown", "normalizer"]
+      "tags": ["codextown", "normalizer"],
+      "comments": [
+        { "author": "owner", "body": "Context, review notes, or follow-ups." }
+      ]
     }
   ]
 }
 ```
 
+- Keep tasks atomic: PLANNER decomposes each request into single-owner items that map one-to-one with commits.
+- Allowed statuses: `TODO`, `DOING`, `DONE`, `BLOCKED`.
+- `description` explains the business value or acceptance criteria.
+- `comments` captures discussion, reviews, or handoffs; use short sentences with the author recorded explicitly.
+
+### Status Transition Protocol
+
+- **Create / Reprioritize (PLANNER only).** PLANNER is the sole writer of new tasks and the only agent that may change priorities or mark work as `BLOCKED`; record the reasoning directly inside `tasks.json` (usually via `description` or a new `comments` entry).
+- **Start Work (specialist agent).** Whoever assumes ownership flips the task to `DOING` inside `tasks.json` before editing files so the backlog always reflects current work.
+- **Complete Work (review/doc specialist).** REVIEWER or DOCS marks tasks `DONE` only after validating the deliverable; add a `comments` entry summarizing the verification (this replaces the old indented `Review:` line in `PLAN.md`).
+- **Status Sync.** `tasks.json` is canonical. After editing it, immediately run `python tasks.py` at the repo root to regenerate the human-readable `tasks.md` before committing.
+- **Escalations.** Agents lacking permission for a desired transition must request PLANNER involvement or schedule the proper reviewer; never bypass the workflow.
+
 Protocol:
 
-* Read the file before writing.
-* Keep valid JSON at all times.
-* If `PLAN.md` and `.AGENTS/TASKS.json` disagree, treat `.AGENTS/TASKS.json` as the canonical state and plan to reconcile `PLAN.md`.
+- Before changing tasks: review the entire `tasks.md` (or the raw `tasks.json`) so you understand the latest state.
+- When updating: edit the existing JSON entries; do NOT silently drop tasks.
+- In your reply: list every task ID you touched plus the new status or notes.
+- Never edit `tasks.md` by hand—run `python tasks.py` so the generated view always matches `tasks.json`.
+
+### `tasks.md` (generated log)
+
+Purpose: human-readable status board derived from `tasks.json` via `tasks.py`.
+
+- Regenerate via `python tasks.py` whenever `tasks.json` changes; the script overwrites `tasks.md` deterministically.
+- Sections mirror the status buckets (Backlog, In Progress, Blocked, Done) and show metadata plus the latest comments.
+- Since the file is generated, treat it like build output: never edit it manually, but commit it so humans can glance at the project state without inspecting JSON.
 
 ---
 
@@ -206,7 +204,7 @@ All non-orchestrator agents are defined as JSON files inside the `.AGENTS/` dire
   * Stop and wait for user input before executing steps.
 * Step 4: Execute.
   * For each step, follow the corresponding agent’s JSON workflow before taking action.
-  * Update `PLAN.md` / `.AGENTS/TASKS.json` through the owner specified in the Status Transition Protocol and call out any status flips.
+  * Update `tasks.json` through the owner specified in the Status Transition Protocol, then run `python tasks.py` so `tasks.md` stays in sync, calling out any status flips in the user-facing summary.
   * Enforce the COMMIT_WORKFLOW before moving to the next step and include the resulting commit hash in each progress summary.
   * Keep the user in the loop: after each block of work, show a short progress summary referencing the numbered plan items.
 * Step 5: Finalize.
