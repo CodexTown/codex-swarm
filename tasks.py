@@ -12,17 +12,32 @@ TASKS_PATH = ROOT / "tasks.json"
 OUTPUT_PATH = ROOT / "tasks.md"
 
 STATUS_SECTIONS = [
-    ("TODO", "Backlog", "_No open tasks._"),
-    ("DOING", "In Progress", "_No active tasks._"),
-    ("BLOCKED", "Blocked", "_No blocked tasks._"),
-    ("DONE", "Done", "_No completed tasks yet._"),
+    ("TODO", "📋 Backlog", "_No open tasks._"),
+    ("DOING", "🚧 In Progress", "_No active tasks._"),
+    ("BLOCKED", "⛔ Blocked", "_No blocked tasks._"),
+    ("DONE", "✅ Done", "_No completed tasks yet._"),
 ]
 
 STATUS_SYMBOLS = {
-    "TODO": "[ ]",
-    "DOING": "[~]",
-    "BLOCKED": "[-]",
-    "DONE": "[x]",
+    "TODO": "📝",
+    "DOING": "⚙️",
+    "BLOCKED": "🛑",
+    "DONE": "✅",
+}
+
+SUMMARY_ICONS = {
+    "TOTAL": "🧮",
+    "TODO": "📋",
+    "DOING": "🚧",
+    "BLOCKED": "⛔",
+    "DONE": "✅",
+}
+
+STATUS_LABELS = {
+    "TODO": "Backlog",
+    "DOING": "In Progress",
+    "BLOCKED": "Blocked",
+    "DONE": "Done",
 }
 
 
@@ -40,7 +55,7 @@ def format_metadata(task: Dict) -> str:
     owner = task.get("owner", "-")
     tags = task.get("tags") or []
     tags_text = ", ".join(tags) if tags else "—"
-    return f"Priority: {priority} | Owner: {owner} | Tags: {tags_text}"
+    return f"**Priority:** {priority} • **Owner:** {owner} • **Tags:** {tags_text}"
 
 
 def format_description(task: Dict) -> str:
@@ -57,7 +72,7 @@ def format_comments(task: Dict) -> List[str]:
         author = comment.get("author", "unknown") or "unknown"
         body = (comment.get("body") or "").strip()
         body = body if body else "(no additional details)"
-        formatted.append(f"    - **{author}:** {body}")
+        formatted.append(f"    - **{author}:** _{body}_")
     if not formatted:
         formatted.append("    - _No comments yet._")
     return formatted
@@ -73,10 +88,11 @@ def build_section(tasks: List[Dict], status: str, heading: str, empty_text: str)
         symbol = STATUS_SYMBOLS.get(status, "[?]")
         task_id = task.get("id", "<no-id>")
         title = task.get("title", "(untitled task)")
-        block.append(f"- {symbol} [{task_id}] {title}")
+        block.append(f"- {symbol} **[{task_id}] {title}**")
+        block.append(f"  - _Status:_ *{STATUS_LABELS.get(status, 'Unknown')}*")
         block.append(f"  - {format_metadata(task)}")
-        block.append(f"  - Description: {format_description(task)}")
-        block.append("  - Comments:")
+        block.append(f"  - _Description:_ {format_description(task)}")
+        block.append("  - 💬 **Comments:**")
         block.extend(format_comments(task))
         block.append("")
     if block[-1] == "":
@@ -94,11 +110,12 @@ def main() -> None:
     total_tasks = len(tasks)
     now = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
 
-    lines: List[str] = ["# Project Tasks", "", f"_Last updated: {now}_", "", "## Summary"]
-    lines.append(f"- Total tasks: {total_tasks}")
+    lines: List[str] = ["# ✨ Project Tasks Board", "", f"_Last updated: {now}_", "", "## ⭐ Summary"]
+    lines.append(f"- {SUMMARY_ICONS['TOTAL']} **Total:** {total_tasks}")
     for status, heading, _ in STATUS_SECTIONS:
-        label = heading
-        lines.append(f"- {label}: {counts.get(status, 0)}")
+        label = STATUS_LABELS.get(status, heading)
+        icon = SUMMARY_ICONS.get(status, "•")
+        lines.append(f"- {icon} **{label}:** {counts.get(status, 0)}")
     lines.append("")
 
     for status, heading, empty_text in STATUS_SECTIONS:
