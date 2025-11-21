@@ -299,16 +299,11 @@
       "id": "T-027",
       "title": "Add UPDATER optimization agent",
       "description": "Introduce an agent dedicated to auditing the repository and proposing optimizations to existing agents when explicitly requested.",
-      "status": "DONE",
+      "status": "DOING",
       "priority": "high",
       "owner": "codex",
       "tags": ["agents", "optimization"],
-      "comments": [
-        {
-          "author": "reviewer",
-          "body": "Validated the new UPDATER agent and documented that it only runs on explicit optimization requests."
-        }
-      ]
+      "comments": []
     },
     {
       "id": "T-028",
