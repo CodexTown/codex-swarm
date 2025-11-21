@@ -1,9 +1,3 @@
-▗▞▀▘ ▄▄▄     ▐▌▗▞▀▚▖▄   ▄      ▄▄▄ ▄   ▄ ▗▞▀▜▌ ▄▄▄ ▄▄▄▄  
-▝▚▄▖█   █    ▐▌▐▛▀▀▘ ▀▄▀      ▀▄▄  █ ▄ █ ▝▚▄▟▌█    █ █ █ 
-    ▀▄▄▄▀ ▗▞▀▜▌▝▚▄▄▖▄▀ ▀▄     ▄▄▄▀ █▄█▄█      █    █   █ 
-          ▝▚▄▟▌                                          
-                                                         
-                                                         
 # Codex Swarm
 
 Codex Swarm is a lightweight framework that bridges the OpenAI Codex Plugin with any IDE where the plugin is installed. It treats the IDE session as a cooperative multi-agent workspace, allowing you to orchestrate specialized agents that collaborate on tasks ranging from software development to documentation, planning, or research.
