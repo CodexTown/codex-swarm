@@ -55,6 +55,8 @@ Codex Swarm is a lightweight framework that bridges the OpenAI Codex Plugin with
 | `scripts/tasks.py` | ⚙️ Utility script that reads `tasks.json` and rewrites `tasks.md` so both stay in sync. |
 | `README.md` | 📚 High-level overview and onboarding material for the repository. |
 | `LICENSE` | 📝 MIT License for the project. |
+| `assets/` | 🖼️ Contains the header image shown on this README and any future static visuals. |
+| `clean.sh` | 🧹 Cleans the repository copy and restarts `git` so you can reuse the snapshot as your own local project. |
 
 ## 🧬 Agent Lifecycle
 
@@ -99,3 +101,18 @@ While Codex Swarm is comfortable implementing code, nothing restricts agents to 
 - 📓 Documentation bots that keep changelogs and README updates synchronized.
 
 If the OpenAI Codex Plugin can access the repository from your IDE, it can orchestrate these agents using the same framework.
+
+## 🧩 Code breakdown
+
+- **`assets/`** stores static media like `assets/header.png` so the README and any future docs can ship branded visuals without adding tooling.
+- **`.AGENTS/*.json`** contains every specialist prompt, permissions, and workflow so the orchestrator can register new agents simply by dropping another JSON file.
+- **`tasks.json`** and **`tasks.md`** track the backlog and board, while `scripts/tasks.py` keeps them synchronized and injects metadata like commit links.
+- **`CONTRIBUTING.md`** and `README.md` are the primary guides for contributors; `LICENSE` keeps the MIT terms inside the repo’s root.
+- **`clean.sh`** removes the existing `git` history, README, tasks files, and assets before running `git init`, giving you a blank slate after downloading the repo zip.
+
+## 🛠️ Local development
+
+1. Download a fresh snapshot from GitHub (e.g., `curl -L https://github.com/densmirnov/codex-swarm/archive/refs/heads/main.zip -o codex-swarm.zip`), unzip it, and `cd` into the extracted folder.
+2. Run `./clean.sh` to delete the bundled assets, documentation, and git metadata and to reinitialize the repository; this step makes the workspace yours without lingering ties to the original repo.
+3. After `clean.sh` finishes, add back the files you plan to edit (e.g., copy `AGENTS.md`, `.AGENTS`, etc.) and run `python scripts/tasks.py` whenever you edit `tasks.json` so `tasks.md` stays current.
+4. Use the ORCHESTRATOR workflow described above to open issues, plan work, update `tasks.json`, regenerate the board, and commit each atomic task with an emoji-prefixed message.

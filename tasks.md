@@ -1,16 +1,16 @@
 # ✨ Project Tasks Board
 
-_Last updated: 2025-11-27 04:12:19 UTC_
+_Last updated: 2025-11-27 04:16:05 UTC_
 
 ## **⭐ Summary**
 
 | Icon | Metric | Count |
 | --- | --- | --- |
-| 🧮 | **Total** | 37 |
+| 🧮 | **Total** | 38 |
 | 📋 | **Backlog** | 0 |
 | 🚧 | **In Progress** | 0 |
 | ⛔ | **Blocked** | 0 |
-| ✅ | **Done** | 37 |
+| ✅ | **Done** | 38 |
 
 🌈 **Palette note:** Keep `python scripts/tasks.py` handy so the table stays in sync after every update.
 🎉 **Vibe check:** Emoji commits + clear summaries = joyful collaborators.
@@ -314,5 +314,13 @@ _No blocked tasks._
   - **_Status:_** *Done*
   - **Priority:** `med` • **Owner:** `📚 DOCS` • **Tags:** `docs`, `workflow`
   - **Description:** Document the recommended contribution workflow and behavioral expectations for Codex Swarm.
+  - **_Commit:_** [`ec13d91`](https://github.com/basilisk-labs/codex-swarm/commit/ec13d916bfc5d0e577b757d2a16dd8380ca3861d) — 📝 T-037 add contributing guidelines
   - 💬 **Comments:**
     - **docs:** _Added CONTRIBUTING.md with the requested contribution guidance._
+
+- ✅ **[T-038] Document README usage guidance**
+  - **_Status:_** *Done*
+  - **Priority:** `med` • **Owner:** `📚 DOCS` • **Tags:** `docs`, `readme`
+  - **Description:** Ensure README describes the codebase and includes local development steps (download Zip, run clean.sh).
+  - 💬 **Comments:**
+    - **docs:** _Extended README with code breakdown and local dev steps (download zip, run clean.sh)._
