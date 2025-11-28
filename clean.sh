@@ -3,7 +3,9 @@ set -euo pipefail
 
 # This script cleans the project folder by removing the root repository links so agents can be used for anything.
 # It removes leftover assets, metadata, and git state that would tie the copy to the original repo.
-rm -rf assets README.md .git LICENSE tasks.json tasks.md
+rm -rf assets README.md .git LICENSE tasks.json tasks.md CONTRIBUTING.md
 
 # Initialize a fresh repository after the cleanup so the folder can be reused independently.
 git init
+
+rm -rf clean.sh
