@@ -21,6 +21,7 @@ SCRIPT_DIR = Path(__file__).resolve().parent
 ROOT = SCRIPT_DIR.parent
 TASKS_PATH = ROOT / "tasks.json"
 AGENTS_DIR = ROOT / ".AGENTS"
+AGENTCTL_DOCS_PATH = ROOT / "docs" / "agentctl.md"
 
 ALLOWED_STATUSES: Set[str] = {"TODO", "DOING", "BLOCKED", "DONE"}
 TASKS_SCHEMA_VERSION = 1
@@ -385,6 +386,33 @@ def cmd_agents(_: argparse.Namespace) -> None:
 
     if duplicates:
         die(f"Duplicate agent ids: {', '.join(sorted(set(duplicates)))}", code=2)
+
+
+def cmd_quickstart(_: argparse.Namespace) -> None:
+    if AGENTCTL_DOCS_PATH.exists():
+        print(AGENTCTL_DOCS_PATH.read_text(encoding="utf-8").rstrip())
+        return
+    print(
+        "\n".join(
+            [
+                "agentctl quickstart",
+                "",
+                "This repo uses python scripts/agentctl.py to manage tasks.json safely (no manual edits).",
+                "",
+                "Common commands:",
+                "  python scripts/agentctl.py task list",
+                "  python scripts/agentctl.py task show T-123",
+                "  python scripts/agentctl.py task lint",
+                "  python scripts/agentctl.py ready T-123",
+                "  python scripts/agentctl.py start T-123 --author CODER --body \"Start: ...\"",
+                "  python scripts/agentctl.py verify T-123",
+                "  python scripts/agentctl.py guard commit T-123 -m \"✨ T-123 ...\" --allow <path-prefix>",
+                "  python scripts/agentctl.py finish T-123 --commit <git-rev> --author REVIEWER --body \"Verified: ...\"",
+                "",
+                "Tip: create docs/agentctl.md to override this output.",
+            ]
+        )
+    )
 
 
 def load_agents_index() -> Set[str]:
@@ -931,6 +959,9 @@ def cmd_finish(args: argparse.Namespace) -> None:
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="agentctl", description="TokenSpot agent workflow helper")
     sub = parser.add_subparsers(dest="cmd", required=True)
+
+    p_quickstart = sub.add_parser("quickstart", help="Print agentctl usage quick reference (docs/agentctl.md)")
+    p_quickstart.set_defaults(func=cmd_quickstart)
 
     p_agents = sub.add_parser("agents", help="List registered agents under .AGENTS/")
     p_agents.set_defaults(func=cmd_agents)
