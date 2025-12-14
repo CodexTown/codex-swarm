@@ -25,8 +25,28 @@ python scripts/agentctl.py verify T-123
 # before committing, validate staged allowlist + message quality
 python scripts/agentctl.py guard commit T-123 -m "✨ T-123 Short meaningful summary" --allow <path-prefix>
 
+# if you want a safe wrapper that also runs `git commit`
+python scripts/agentctl.py commit T-123 -m "✨ T-123 Short meaningful summary" --allow <path-prefix>
+
 # when closing a task: mark DONE + attach commit metadata (typically after implementation commit)
 python scripts/agentctl.py finish T-123 --commit <git-rev> --author REVIEWER --body "Verified: ... (what ran, results, caveats)"
+```
+
+## Ergonomics helpers
+
+```bash
+# find tasks that are ready to start (deps DONE)
+python scripts/agentctl.py task next
+
+# search tasks by text (title/description/tags/comments)
+python scripts/agentctl.py task search agentctl
+
+# scaffold a workflow artifact (docs/workflow/T-###.md)
+python scripts/agentctl.py task scaffold T-123
+
+# suggest minimal --allow prefixes based on staged files
+python scripts/agentctl.py guard suggest-allow
+python scripts/agentctl.py guard suggest-allow --format args
 ```
 
 ## Workflow reminders
@@ -35,4 +55,3 @@ python scripts/agentctl.py finish T-123 --commit <git-rev> --author REVIEWER --b
 - Keep work atomic: one task → one implementation commit (plus planning + closure commits if you use the 3-phase cadence).
 - Prefer `start/block/finish` over `task set-status`.
 - Keep allowlists tight: pass only the path prefixes you intend to commit.
-

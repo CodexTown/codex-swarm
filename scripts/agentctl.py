@@ -22,6 +22,7 @@ ROOT = SCRIPT_DIR.parent
 TASKS_PATH = ROOT / "tasks.json"
 AGENTS_DIR = ROOT / ".AGENTS"
 AGENTCTL_DOCS_PATH = ROOT / "docs" / "agentctl.md"
+WORKFLOW_DIR = ROOT / "docs" / "workflow"
 
 ALLOWED_STATUSES: Set[str] = {"TODO", "DOING", "BLOCKED", "DONE"}
 TASKS_SCHEMA_VERSION = 1
@@ -154,6 +155,159 @@ def cmd_task_list(args: argparse.Namespace) -> None:
         tasks_sorted = filtered
     for task in tasks_sorted:
         print(format_task_line(task))
+
+
+def cmd_task_next(args: argparse.Namespace) -> None:
+    tasks = load_tasks()
+    tasks_by_id, warnings = index_tasks_by_id(tasks)
+    dep_state, dep_warnings = compute_dependency_state(tasks_by_id)
+    warnings = warnings + dep_warnings
+    if warnings and not args.quiet:
+        for warning in warnings:
+            print(f"⚠️ {warning}")
+
+    tasks_sorted = sorted(tasks_by_id.values(), key=lambda t: str(t.get("id") or ""))
+    statuses = {s.strip().upper() for s in (args.status or ["TODO"])}
+    tasks_sorted = [t for t in tasks_sorted if str(t.get("status") or "TODO").strip().upper() in statuses]
+
+    if args.owner:
+        want_owner = {o.strip().upper() for o in args.owner}
+        tasks_sorted = [t for t in tasks_sorted if str(t.get("owner") or "").strip().upper() in want_owner]
+    if args.tag:
+        want_tag = {t.strip() for t in args.tag}
+        filtered: List[Dict] = []
+        for task in tasks_sorted:
+            tags = task.get("tags") or []
+            if any(tag in want_tag for tag in tags if isinstance(tag, str)):
+                filtered.append(task)
+        tasks_sorted = filtered
+
+    ready_tasks: List[Dict] = []
+    for task in tasks_sorted:
+        task_id = str(task.get("id") or "").strip()
+        info = dep_state.get(task_id) or {}
+        missing = info.get("missing") or []
+        incomplete = info.get("incomplete") or []
+        if missing or incomplete:
+            continue
+        ready_tasks.append(task)
+
+    if args.limit is not None and args.limit >= 0:
+        ready_tasks = ready_tasks[: args.limit]
+    for task in ready_tasks:
+        print(format_task_line(task))
+
+
+def _task_text_blob(task: Dict) -> str:
+    parts: List[str] = []
+    for key in ("id", "title", "description", "status", "priority", "owner"):
+        value = task.get(key)
+        if isinstance(value, str) and value.strip():
+            parts.append(value.strip())
+    tags = task.get("tags")
+    if isinstance(tags, list):
+        parts.extend(t for t in tags if isinstance(t, str) and t.strip())
+    comments = task.get("comments")
+    if isinstance(comments, list):
+        for comment in comments:
+            if not isinstance(comment, dict):
+                continue
+            author = comment.get("author")
+            body = comment.get("body")
+            if isinstance(author, str) and author.strip():
+                parts.append(author.strip())
+            if isinstance(body, str) and body.strip():
+                parts.append(body.strip())
+    commit = task.get("commit")
+    if isinstance(commit, dict):
+        for key in ("hash", "message"):
+            value = commit.get(key)
+            if isinstance(value, str) and value.strip():
+                parts.append(value.strip())
+    return "\n".join(parts)
+
+
+def cmd_task_search(args: argparse.Namespace) -> None:
+    query = args.query.strip()
+    if not query:
+        die("Query must be non-empty", code=2)
+
+    tasks = load_tasks()
+    tasks_by_id, warnings = index_tasks_by_id(tasks)
+    if warnings and not args.quiet:
+        for warning in warnings:
+            print(f"⚠️ {warning}")
+
+    tasks_sorted = sorted(tasks_by_id.values(), key=lambda t: str(t.get("id") or ""))
+    if args.status:
+        want = {s.strip().upper() for s in args.status}
+        tasks_sorted = [t for t in tasks_sorted if str(t.get("status") or "TODO").strip().upper() in want]
+    if args.owner:
+        want_owner = {o.strip().upper() for o in args.owner}
+        tasks_sorted = [t for t in tasks_sorted if str(t.get("owner") or "").strip().upper() in want_owner]
+    if args.tag:
+        want_tag = {t.strip() for t in args.tag}
+        filtered: List[Dict] = []
+        for task in tasks_sorted:
+            tags = task.get("tags") or []
+            if any(tag in want_tag for tag in tags if isinstance(tag, str)):
+                filtered.append(task)
+        tasks_sorted = filtered
+
+    if args.regex:
+        try:
+            pattern = re.compile(query, flags=re.IGNORECASE)
+        except re.error as exc:
+            die(f"Invalid regex: {exc}", code=2)
+        matches = [t for t in tasks_sorted if pattern.search(_task_text_blob(t) or "")]
+    else:
+        q = query.lower()
+        matches = [t for t in tasks_sorted if q in (_task_text_blob(t) or "").lower()]
+
+    if args.limit is not None and args.limit >= 0:
+        matches = matches[: args.limit]
+    for task in matches:
+        print(format_task_line(task))
+
+
+def cmd_task_scaffold(args: argparse.Namespace) -> None:
+    task_id = args.task_id.strip()
+    if not task_id:
+        die("task_id must be non-empty", code=2)
+
+    title = args.title
+    if not title and not args.force:
+        data = load_json(TASKS_PATH)
+        task = _ensure_task_object(data, task_id)
+        title = str(task.get("title") or "").strip()
+
+    WORKFLOW_DIR.mkdir(parents=True, exist_ok=True)
+    target = WORKFLOW_DIR / f"{task_id}.md"
+    if target.exists() and not args.overwrite:
+        die(f"File already exists: {target}", code=2)
+
+    heading = f"# {task_id}: {title.strip()}" if title and title.strip() else f"# {task_id}"
+    content = "\n".join(
+        [
+            heading,
+            "",
+            "## Goal",
+            "",
+            "- ...",
+            "",
+            "## Scope",
+            "",
+            "- ...",
+            "",
+            "## Verification",
+            "",
+            "- ...",
+            "",
+        ]
+    )
+    target.write_text(content, encoding="utf-8")
+    if not args.quiet:
+        print(f"✅ wrote {target.relative_to(ROOT)}")
 
 
 def cmd_task_show(args: argparse.Namespace) -> None:
@@ -348,12 +502,72 @@ def git_unstaged_files() -> List[str]:
     return [line.strip() for line in (result.stdout or "").splitlines() if line.strip()]
 
 
+def suggest_allow_prefixes(paths: Iterable[str]) -> List[str]:
+    prefixes: List[str] = []
+    for raw in paths:
+        path = raw.strip().lstrip("./")
+        if not path:
+            continue
+        if "/" not in path:
+            prefixes.append(path)
+            continue
+        prefixes.append(path.rsplit("/", 1)[0])
+    return sorted(set(prefixes))
+
+
 def path_is_under(path: str, prefix: str) -> bool:
     p = path.strip().lstrip("./")
     root = prefix.strip().lstrip("./").rstrip("/")
     if not root:
         return False
     return p == root or p.startswith(root + "/")
+
+
+def guard_commit_check(
+    *,
+    task_id: str,
+    message: str,
+    allow: List[str],
+    allow_tasks: bool,
+    require_clean: bool,
+    quiet: bool,
+) -> None:
+    if task_id not in message:
+        die(f"Commit message must include {task_id}", code=2)
+    if not commit_message_has_meaningful_summary(task_id, message):
+        die(
+            "Commit message is too generic; include a short summary (and constraints when relevant), "
+            'e.g. "✨ T-123 Add X (no network)"',
+            code=2,
+        )
+
+    staged = git_staged_files()
+    if not staged:
+        die("No staged files", code=2)
+
+    if not allow:
+        die("Provide at least one --allow <path> prefix", code=2)
+
+    unstaged = git_unstaged_files()
+    if require_clean and unstaged:
+        for path in unstaged:
+            print(f"❌ unstaged: {path}", file=sys.stderr)
+        die("Working tree is dirty", code=2)
+    if unstaged and not quiet and not require_clean:
+        print(f"⚠️ working tree has {len(unstaged)} unstaged file(s); ignoring (multi-agent workspace)")
+
+    denied = set()
+    if not allow_tasks:
+        denied.update({"tasks.json"})
+
+    for path in staged:
+        if path in denied:
+            die(f"Staged file is forbidden by default: {path} (use --allow-tasks to override)", code=2)
+        if not any(path_is_under(path, allowed) for allowed in allow):
+            die(f"Staged file is outside allowlist: {path}", code=2)
+
+    if not quiet:
+        print("✅ guard passed")
 
 def cmd_agents(_: argparse.Namespace) -> None:
     if not AGENTS_DIR.exists():
@@ -559,45 +773,59 @@ def cmd_guard_clean(args: argparse.Namespace) -> None:
         print("✅ index clean (no staged files)")
 
 
-def cmd_guard_commit(args: argparse.Namespace) -> None:
-    task_id = args.task_id.strip()
-    message = args.message
-    if task_id not in message:
-        die(f"Commit message must include {task_id}", code=2)
-    if not commit_message_has_meaningful_summary(task_id, message):
-        die(
-            "Commit message is too generic; include a short summary (and constraints when relevant), "
-            'e.g. "✨ T-123 Add X (no network)"',
-            code=2,
-        )
-
+def cmd_guard_suggest_allow(args: argparse.Namespace) -> None:
     staged = git_staged_files()
     if not staged:
         die("No staged files", code=2)
+    prefixes = suggest_allow_prefixes(staged)
+    if args.format == "args":
+        print(" ".join(f"--allow {p}" for p in prefixes))
+        return
+    for prefix in prefixes:
+        print(prefix)
 
-    if not args.allow:
-        die("Provide at least one --allow <path> prefix", code=2)
 
-    unstaged = git_unstaged_files()
-    if args.require_clean and unstaged:
-        for path in unstaged:
-            print(f"❌ unstaged: {path}", file=sys.stderr)
-        die("Working tree is dirty", code=2)
-    if unstaged and not args.quiet and not args.require_clean:
-        print(f"⚠️ working tree has {len(unstaged)} unstaged file(s); ignoring (multi-agent workspace)")
+def cmd_guard_commit(args: argparse.Namespace) -> None:
+    guard_commit_check(
+        task_id=args.task_id.strip(),
+        message=args.message,
+        allow=list(args.allow or []),
+        allow_tasks=bool(args.allow_tasks),
+        require_clean=bool(args.require_clean),
+        quiet=bool(args.quiet),
+    )
 
-    denied = set()
-    if not args.allow_tasks:
-        denied.update({"tasks.json"})
 
-    for path in staged:
-        if path in denied:
-            die(f"Staged file is forbidden by default: {path} (use --allow-tasks to override)", code=2)
-        if not any(path_is_under(path, allowed) for allowed in args.allow):
-            die(f"Staged file is outside allowlist: {path}", code=2)
+def cmd_commit(args: argparse.Namespace) -> None:
+    task_id = args.task_id.strip()
+    message = args.message
+    allow = list(args.allow or [])
+    if args.auto_allow:
+        allow = suggest_allow_prefixes(git_staged_files())
+        if not allow:
+            die("No staged files", code=2)
 
+    guard_commit_check(
+        task_id=task_id,
+        message=message,
+        allow=allow,
+        allow_tasks=bool(args.allow_tasks),
+        require_clean=bool(args.require_clean),
+        quiet=bool(args.quiet),
+    )
+
+    try:
+        subprocess.run(
+            ["git", "commit", "-m", message],
+            cwd=str(ROOT),
+            text=True,
+            check=True,
+        )
+    except subprocess.CalledProcessError as exc:
+        die(exc.stderr.strip() or "git commit failed")
+    commit_info = get_commit_info("HEAD")
     if not args.quiet:
-        print("✅ guard passed")
+        print(f"✅ committed {commit_info['hash'][:12]} {commit_info['message']}")
 
 
 def cmd_start(args: argparse.Namespace) -> None:
@@ -983,6 +1211,10 @@ def build_parser() -> argparse.ArgumentParser:
     p_guard_clean.add_argument("--quiet", action="store_true", help="Minimal output")
     p_guard_clean.set_defaults(func=cmd_guard_clean)
 
+    p_guard_suggest = guard_sub.add_parser("suggest-allow", help="Suggest minimal --allow prefixes for staged files")
+    p_guard_suggest.add_argument("--format", choices=["lines", "args"], default="lines", help="Output format")
+    p_guard_suggest.set_defaults(func=cmd_guard_suggest_allow)
+
     p_guard_commit = guard_sub.add_parser("commit", help="Validate staged files and planned commit message")
     p_guard_commit.add_argument("task_id", help="Active task id (must appear in --message)")
     p_guard_commit.add_argument("--message", "-m", required=True, help="Planned commit message")
@@ -992,6 +1224,16 @@ def build_parser() -> argparse.ArgumentParser:
     p_guard_commit.add_argument("--require-clean", action="store_true", help="Fail if there are unstaged changes")
     p_guard_commit.add_argument("--quiet", action="store_true", help="Minimal output")
     p_guard_commit.set_defaults(func=cmd_guard_commit)
+
+    p_commit = sub.add_parser("commit", help="Run guard commit checks, then `git commit`")
+    p_commit.add_argument("task_id", help="Active task id (must appear in --message)")
+    p_commit.add_argument("--message", "-m", required=True, help="Commit message")
+    p_commit.add_argument("--allow", action="append", help="Allowed path prefix (repeatable)")
+    p_commit.add_argument("--auto-allow", action="store_true", help="Derive --allow prefixes from staged files")
+    p_commit.add_argument("--allow-tasks", action="store_true", help="Allow staging tasks.json")
+    p_commit.add_argument("--require-clean", action="store_true", help="Fail if there are unstaged changes")
+    p_commit.add_argument("--quiet", action="store_true", help="Minimal output")
+    p_commit.set_defaults(func=cmd_commit)
 
     p_start = sub.add_parser("start", help="Mark task DOING with a mandatory comment")
     p_start.add_argument("task_id")
@@ -1058,11 +1300,37 @@ def build_parser() -> argparse.ArgumentParser:
     p_list.add_argument("--quiet", action="store_true", help="Suppress warnings")
     p_list.set_defaults(func=cmd_task_list)
 
+    p_next = task_sub.add_parser("next", help="List tasks ready to start (dependencies DONE)")
+    p_next.add_argument("--status", action="append", help="Filter by status (repeatable, default: TODO)")
+    p_next.add_argument("--owner", action="append", help="Filter by owner (repeatable)")
+    p_next.add_argument("--tag", action="append", help="Filter by tag (repeatable)")
+    p_next.add_argument("--limit", type=int, help="Limit number of results")
+    p_next.add_argument("--quiet", action="store_true", help="Suppress warnings")
+    p_next.set_defaults(func=cmd_task_next)
+
     p_show = task_sub.add_parser("show", help="Show a single task from tasks.json")
     p_show.add_argument("task_id")
     p_show.add_argument("--last-comments", type=int, default=5, help="How many latest comments to print")
     p_show.add_argument("--quiet", action="store_true", help="Suppress warnings")
     p_show.set_defaults(func=cmd_task_show)
+
+    p_search = task_sub.add_parser("search", help="Search tasks by text (title/description/tags/comments)")
+    p_search.add_argument("query")
+    p_search.add_argument("--regex", action="store_true", help="Treat query as a case-insensitive regex")
+    p_search.add_argument("--status", action="append", help="Filter by status (repeatable)")
+    p_search.add_argument("--owner", action="append", help="Filter by owner (repeatable)")
+    p_search.add_argument("--tag", action="append", help="Filter by tag (repeatable)")
+    p_search.add_argument("--limit", type=int, help="Limit number of results")
+    p_search.add_argument("--quiet", action="store_true", help="Suppress warnings")
+    p_search.set_defaults(func=cmd_task_search)
+
+    p_scaffold = task_sub.add_parser("scaffold", help="Create docs/workflow/T-###.md skeleton for a task")
+    p_scaffold.add_argument("task_id")
+    p_scaffold.add_argument("--title", help="Optional title override")
+    p_scaffold.add_argument("--overwrite", action="store_true", help="Overwrite if the file exists")
+    p_scaffold.add_argument("--force", action="store_true", help="Allow scaffolding even if task id is unknown")
+    p_scaffold.add_argument("--quiet", action="store_true", help="Minimal output")
+    p_scaffold.set_defaults(func=cmd_task_scaffold)
 
     p_comment = task_sub.add_parser("comment", help="Append a comment to a task")
     p_comment.add_argument("task_id")
