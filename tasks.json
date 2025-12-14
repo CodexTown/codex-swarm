@@ -985,7 +985,7 @@
       "id": "T-050",
       "title": "Adopt agentctl-based agent workflow",
       "description": "Update AGENTS.md + .AGENTS/*.json to use scripts/agentctl.py for task operations (no manual tasks.json edits), add the new CLI to the repo, and make tasks.json pass agentctl task lint (meta+checksum, DONE tasks have commit metadata).",
-      "status": "DOING",
+      "status": "DONE",
       "priority": "high",
       "owner": "CODER",
       "tags": [
@@ -1004,14 +1004,22 @@
         {
           "author": "CODER",
           "body": "Start: update AGENTS.md and .AGENTS/*.json to use agentctl; add scripts/agentctl.py; make tasks.json lint-clean; Constraints: no manual tasks.json edits."
+        },
+        {
+          "author": "REVIEWER",
+          "body": "Verified: agentctl task lint passes; AGENTS.md/.AGENTS now require agentctl for task ops; scripts/agentctl.py is tracked; Limitations: existing CODEX owner warnings remain."
         }
-      ]
+      ],
+      "commit": {
+        "hash": "8f6ecd8bd1a461e52243f90732530069652a45c1",
+        "message": "🛠️ T-050 Adopt agentctl workflow"
+      }
     }
   ],
   "meta": {
     "schema_version": 1,
     "managed_by": "agentctl",
     "checksum_algo": "sha256",
-    "checksum": "5a3e6d7bb8e0c66ecd69154000ddbc418e4e0a3a33a5b56bed5a34b4b48805e5"
+    "checksum": "acfabf1d972000644028a857da06f92e0f434983e567c2e442b6a3eaa704b6dd"
   }
 }
