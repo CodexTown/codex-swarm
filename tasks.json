@@ -1084,7 +1084,7 @@
       "id": "T-053",
       "title": "Require DOCS workflow artifact before finishing tasks",
       "description": "Change DOCS agent behavior so it runs before finishing any task and produces an atomic documentation artifact under @docs/workflow (e.g., @docs/workflow/T-025.md) describing what was implemented. Update orchestration guidance so plans include DOCS before REVIEWER marks tasks DONE.\\n\\nAcceptance criteria:\\n- @docs/workflow directory exists and is committed (with a short README describing artifact convention).\\n- @.AGENTS/DOCS.json instructs producing @docs/workflow/T-###.md artifacts (English, atomic, task-scoped).\\n- @AGENTS.md ORCHESTRATOR guidance schedules DOCS before finishing any task (DOCS before REVIEWER finish).\\n\\nNotes:\\n- Artifacts must be task-ID named, contain summary + changed files + verification commands (when available).",
-      "status": "TODO",
+      "status": "DOING",
       "priority": "med",
       "owner": "CREATOR",
       "tags": [
@@ -1095,6 +1095,12 @@
       "verify": [
         "python scripts/agentctl.py task lint",
         "python scripts/agentctl.py agents"
+      ],
+      "comments": [
+        {
+          "author": "CREATOR",
+          "body": "Start: update DOCS to write docs/workflow/T-###.md artifacts and wire ORCHESTRATOR guidance to run DOCS before finishing tasks."
+        }
       ]
     }
   ],
@@ -1102,6 +1108,6 @@
     "schema_version": 1,
     "managed_by": "agentctl",
     "checksum_algo": "sha256",
-    "checksum": "f3c433c4d02d20e6235998f0905b2b18af60aae38b708aa71aa5524355ac907e"
+    "checksum": "ac7c62763bfccc6eb70f94e0550852929c565f941c7c75d34d10d426c269d662"
   }
 }
