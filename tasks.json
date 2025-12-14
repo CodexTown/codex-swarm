@@ -1307,12 +1307,29 @@
           "body": "Verified: Ran python scripts/agentctl.py task lint and python scripts/agentctl.py agents; confirmed .AGENTS workflows now start with python scripts/agentctl.py quickstart and reference docs/agentctl.md and helper commands."
         }
       ]
+    },
+    {
+      "id": "T-061",
+      "title": "Require user approval before final task-closing commit",
+      "description": "Update agent workflows so that before creating the final closure commit for a task (the commit that marks the task DONE in tasks.json, typically together with docs/workflow/T-###.md updates), the agent must explicitly request user confirmation and wait for approval.\\n\\nAcceptance criteria:\\n- AGENTS.md COMMIT_WORKFLOW states that the final closure commit requires explicit user approval.\\n- ORCHESTRATOR guidance includes a pause/confirmation request before the closing commit.\\n- REVIEWER workflow requires asking the user before running agentctl finish + committing tasks.json (and any workflow artifact updates).",
+      "status": "TODO",
+      "priority": "med",
+      "owner": "REVIEWER",
+      "tags": [
+        "workflow",
+        "agents",
+        "git"
+      ],
+      "verify": [
+        "python scripts/agentctl.py task lint",
+        "python scripts/agentctl.py agents"
+      ]
     }
   ],
   "meta": {
     "schema_version": 1,
     "managed_by": "agentctl",
     "checksum_algo": "sha256",
-    "checksum": "90380abf1fb244c546d5d2346b46ed995ea452f0a4ff68c48d8fb289ae373459"
+    "checksum": "2b22012a7b92bd70fa9f07f56ca5d93ef4420dab580bd9404c7957b24b40554a"
   }
 }
