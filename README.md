@@ -119,20 +119,20 @@ flowchart TD
   U[User] --> O[ORCHESTRATOR]
 
   O -->|Backlog + task breakdown| P[PLANNER]
-  P --> TJ[tasks.json]
+  P --> TJ["tasks.json"]
   P -->|Planning artifact| D0[DOCS]
-  D0 --> A0[docs/workflow/T-###.md]
+  D0 --> A0["docs/workflow/T-123.md"]
 
   O -->|Implementation| C[CODER]
   C -->|Test coverage handoff| T[TESTER]
   T -->|Tests/coverage suggestions| C
-  C --> WC[Work commit (implementation + tests)]
+  C --> WC["Work commit: implementation + tests"]
 
   O -->|Pre-finish documentation| D1[DOCS]
-  D1 -->|Update artifact| A1[docs/workflow/T-###.md]
+  D1 -->|Update artifact| A1["docs/workflow/T-123.md"]
 
   O -->|Verification + closure| R[REVIEWER]
-  R -->|agentctl verify/finish| DONE[Task marked DONE (tasks.json)]
+  R -->|agentctl verify/finish| DONE["Task marked DONE (tasks.json)"]
 ```
 
 ## 🧾 Commit Workflow
