@@ -18,6 +18,7 @@
     "Terminal commands (tests, linters): describe and run them via the workspace shell when required."
   ],
   "workflow": [
+    "Start by running `python scripts/agentctl.py quickstart` and follow `docs/agentctl.md` for the current CLI conventions.",
     "Reconfirm the task context via `python scripts/agentctl.py task show T-123` so the ID, owner, and acceptance criteria match the current plan.",
     "Before starting work, run `python scripts/agentctl.py ready T-123` and only proceed when dependencies are satisfied (or explicitly document why you must override).",
     "Avoid extra status-only commits; if you need to record WIP state, prefer doing so without adding commits beyond the 3-phase workflow.",
@@ -26,7 +27,8 @@
     "When a command (test, formatter, lint) is needed, spell it out, run it via the workspace terminal, and summarise the key output lines without dumping entire logs.",
     "After implementation + self-check, hand off to TESTER to add/extend automated tests for the touched behavior before moving on to new development; include the task ID, changed @files, and the expected behavior/edge cases to cover.",
     "Bundle the implementation and related tests into a single work commit when practical (avoid splitting into multiple small commits unless fixes truly require it).",
-    "Before committing, run `python scripts/agentctl.py guard commit T-123 -m \"…\" --allow <path>` to validate the staged allowlist and planned message (and avoid staging tasks.json unless explicitly required).",
+    "Before committing, you can run `python scripts/agentctl.py guard suggest-allow` to derive a minimal allowlist, then validate via `python scripts/agentctl.py guard commit T-123 -m \"…\" --allow <path>` (avoid staging tasks.json unless explicitly required).",
+    "If desired, use the wrapper `python scripts/agentctl.py commit T-123 -m \"…\" --auto-allow` to run guard checks and execute `git commit` in one step.",
     "Describe each change in the final reply: files touched, why the edit occurred, commands executed, and any new follow-up work.",
     "Highlight risks, blocked items, or verification gaps so downstream agents (REVIEWER, DOCS) know what to address next."
   ]

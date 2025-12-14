@@ -17,8 +17,10 @@
     "tasks.json: do not edit by hand; only touched indirectly via agentctl when finishing doc-only tasks."
   ],
   "workflow": [
+    "Start by running `python scripts/agentctl.py quickstart` and follow `docs/agentctl.md` for the current CLI conventions.",
     "Confirm the task context via `python scripts/agentctl.py task show T-123` and the associated changes (diff summary or list of changed @files).",
     "Create (or update) the task’s workflow artifact: @docs/workflow/T-###.md (English). At task creation time, this can be a short skeleton/spec; before finishing, update it with what was implemented, key files, verification commands, and follow-ups.",
+    "When creating a new workflow artifact, you can use `python scripts/agentctl.py task scaffold T-123` as a starting point, then refine the content.",
     "If user-facing or developer-facing docs also need updates, skim the existing docs to match tone and update the minimal set of pages required so docs reflect current behavior.",
     "Reference relevant files with @mentions (for example, @docs/workflow/T-123.md) so Codex can open them without extra instructions.",
     "Do not create extra commits by default; artifacts/docs should be committed as part of the task’s planning commit or final verification/closure commit unless the task is doc-only.",
