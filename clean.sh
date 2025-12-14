@@ -13,16 +13,58 @@ if [ -f "$AGENTCTL_DOC" ]; then
   cp "$AGENTCTL_DOC" "$AGENTCTL_DOC_TMP"
 fi
 
-rm -rf assets docs README.md tasks.html .DS_Store .git .gitattributes .github LICENSE tasks.json CONTRIBUTING.md CODE_OF_CONDUCT.md GUIDELINE.md
+rm -rf \
+  .DS_Store \
+  .env* \
+  .github \
+  .gitattributes \
+  .git \
+  __pycache__ \
+  .pytest_cache \
+  .venv \
+  assets \
+  docs \
+  README.md \
+  tasks.html \
+  LICENSE \
+  tasks.json \
+  CONTRIBUTING.md \
+  CODE_OF_CONDUCT.md \
+  GUIDELINE.md
 
 if [ -n "$AGENTCTL_DOC_TMP" ]; then
   mkdir -p docs
   mv "$AGENTCTL_DOC_TMP" "$AGENTCTL_DOC"
 fi
 
+# Recreate an empty tasks.json so the framework is usable after cleanup.
+python - <<'PY' > tasks.json
+import hashlib
+import json
+
+tasks = []
+payload = json.dumps({"tasks": tasks}, sort_keys=True, ensure_ascii=False, separators=(",", ":")).encode("utf-8")
+checksum = hashlib.sha256(payload).hexdigest()
+
+data = {
+    "tasks": tasks,
+    "meta": {
+        "schema_version": 1,
+        "managed_by": "agentctl",
+        "checksum_algo": "sha256",
+        "checksum": checksum,
+    },
+}
+
+print(json.dumps(data, indent=2, ensure_ascii=False))
+PY
+
 # Initialize a fresh repository after the cleanup so the folder can be reused independently.
 git init
-git add .AGENTS scripts .gitignore AGENTS.md
+git add .AGENTS scripts .gitignore AGENTS.md tasks.json
+if [ -f "$AGENTCTL_DOC" ]; then
+  git add "$AGENTCTL_DOC"
+fi
 git commit -m "Initial commit"
 
 rm -rf clean.sh

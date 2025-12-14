@@ -21,7 +21,7 @@ Codex Swarm is a local layering on top of the OpenAI Codex plugin. It keeps work
    cd codex-swarm
    ```
 2. Open the project in your IDE with the Codex plugin enabled.
-3. (Optional) Run `./clean.sh` if you want to remove the bundled assets, README copies, and git history before you begin; this script reinitializes the repository and gives you a blank slate.
+3. (Optional) Run `./clean.sh` if you want a clean slate; it removes framework-development artifacts and reinitializes git, leaving only the minimal files needed to reuse the framework as your own project.
 4. Use `python scripts/agentctl.py task list` / `python scripts/agentctl.py task show T-123` to inspect tasks, and run `python scripts/agentctl.py task lint` after changes to keep `tasks.json` checksum-valid.
 5. Keep `.AGENTS/*.json` open so you can see each agent’s permissions and workflow before you touch files.
 
@@ -58,13 +58,16 @@ Codex Swarm is a local layering on top of the OpenAI Codex plugin. It keeps work
 
 ## 6. Common commands and expectations
 
+- `docs/agentctl.md`: Quick reference for the supported `agentctl` commands.
+- `docs/architecture.md`: Background on how the swarm fits together (concepts + diagrams).
 - `python scripts/agentctl.py agents`: List registered agents under `.AGENTS/`.
 - `python scripts/agentctl.py task list` / `python scripts/agentctl.py task show T-123`: Inspect the backlog.
 - `python scripts/agentctl.py task add/update/comment/set-status`: Modify tasks without breaking the checksum.
 - `python scripts/agentctl.py ready/start/block/verify/finish`: Enforced task lifecycle with readiness + verify gates.
 - `python scripts/agentctl.py task lint`: Validate schema/deps/checksum for `tasks.json`.
 - `python scripts/agentctl.py guard clean/commit`: Git hygiene + staging allowlist checks.
-- `./clean.sh`: Optional reset tool that deletes the bundled assets and reinitializes the git history; use it when you want to reuse this repo as a fresh project.
+- `python scripts/agentctl.py commit`: Optional wrapper that runs commit guards and then `git commit`.
+- `./clean.sh`: Optional reset tool that removes framework-development artifacts and reinitializes git; use it when you want to reuse this repo as a fresh project.
 - `git status --short`: Verify the tree is clean before handing control back.
 - Use emoji-prefixed commit messages that mention the task ID.
 
@@ -89,6 +92,6 @@ Codex Swarm is a local layering on top of the OpenAI Codex plugin. It keeps work
 - You’re looking at outdated task info: rerun `python scripts/agentctl.py task list` (or `task show T-123`) to confirm the latest state.
 - Your working tree is dirty before committing: run `git status --short`, stash or revert unrelated changes, and keep future commits scoped to the current task.
 - The Codex plugin stops responding: restart the IDE, reopen the repository, or re-execute your last command manually in a terminal before resuming.
-- Need a clean slate? `./clean.sh` removes the bundled docs and git history, then reinitializes the repo so you can reuse the framework without carrying over artifacts.
+- Need a clean slate? `./clean.sh` removes framework-development artifacts and reinitializes the repo so you can reuse the framework without carrying over the upstream history and docs.
 
 By following these steps, you can install, use, and extend Codex Swarm predictably from your local IDE.

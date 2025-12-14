@@ -42,8 +42,8 @@ The following behaviors are not tolerated:
 If you observe or experience behavior that violates this Code of Conduct:
 
 1. **Document it.** Save links, screenshots, and a concise summary of what happened.
-2. **Reach out privately.** Contact any current maintainer or reviewer in the repository (see `CONTRIBUTING.md` for the current roster).
-3. **Escalate if needed.** If the first contact does not resolve the issue, raise it to the PLANNER or DOCS agents via the established backlog, noting the original context and your past attempts to resolve it.
+2. **Reach out privately when possible.** Contact a project maintainer via GitHub (or any published contact method in the repository).
+3. **Escalate if needed.** If private contact is not possible or does not resolve the issue, open a GitHub issue with a concise summary and links to context. If you are using Codex Swarm internally (outside GitHub), create a tracked task that records the incident and desired resolution.
 
 Maintainers may respond with reminders, warnings, or temporary access restrictions, depending on severity. In clear cases of repeated or severe violations, maintainers reserve the right to remove contributors from the workspace or archive abusive content.
 

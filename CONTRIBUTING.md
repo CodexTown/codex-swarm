@@ -14,6 +14,10 @@ This document describes how we work on the project and how to propose changes.
   → **must start as an Issue**, be discussed and approved by maintainers,
   → only then implemented in a pull request.
 
+## 0.1 Code of Conduct
+
+All contributors are expected to follow `CODE_OF_CONDUCT.md`.
+
 ---
 
 ## 1. Governance
@@ -81,7 +85,8 @@ green, a maintainer will merge it.
 
 Direct commits to main are reserved for maintainers and automated tooling.
 
-4. Coding style
+## 4. Coding style
+
 Follow the existing style in the files you modify.
 
 Prefer clear, explicit code over clever one-liners.
@@ -93,7 +98,8 @@ Add or update tests alongside new behavior whenever possible.
 If you are unsure about style or structure, ask in the Issue before investing a
 lot of time.
 
-5. Documentation contributions
+## 5. Documentation contributions
+
 Improving documentation is highly appreciated:
 
 - Fixing typos or unclear wording.
@@ -103,7 +109,8 @@ Improving documentation is highly appreciated:
 Documentation changes also go through pull requests and should keep the
 structure and tone of existing docs.
 
-6. License and copyright
+## 6. License and copyright
+
 By contributing to Codex Swarm, you agree that:
 
 - Your contributions are licensed under the same license as the project
@@ -115,9 +122,12 @@ The project’s copyright notice must be preserved as described in LICENSE.
 If you add files that originate from third-party sources, clearly mark their
 license and provenance.
 
-7. Code of Conduct
-Please be respectful in all interactions in Issues, pull requests and other
-project spaces.
+## 7. Project workflow notes (when applicable)
 
-A formal CODE_OF_CONDUCT.md may be added; until then, use common sense:
-focus on technical arguments, assume good intent, and avoid personal attacks.
+Some changes (especially documentation and workflow automation) are managed inside the repo via the framework itself:
+
+- `tasks.json` is the canonical backlog and must be updated only via `python scripts/agentctl.py` (manual edits break the checksum).
+- Per-task documentation artifacts live under `docs/workflow/`.
+- When a contribution touches task tooling or task data, maintainers may ask you to:
+  - run `python scripts/agentctl.py task lint`
+  - keep commits scoped and traceable (task IDs + short messages)
